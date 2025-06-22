@@ -36,6 +36,35 @@ namespace SimpleBookStore.Service
             await _db.SaveChangesAsync();
         }
 
+        public async Task UpdateAsync(Author author, IFormFile imageFile)
+        {
+            var originAuthor = await _db.Authors.FirstOrDefaultAsync(p => p.Id == author.Id);
+            if (originAuthor == null)
+            {
+                throw new Exception("找不到作者");
+            }
+            originAuthor.Name = author.Name;
+
+            // 若有新圖片
+            if (imageFile != null && imageFile.Length > 0)
+            {
+                // 刪除舊圖片（如果有）
+                if (!string.IsNullOrEmpty(originAuthor.ImageUrl))
+                {
+                    var oldImagePath = Path.Combine(_env.WebRootPath, originAuthor.ImageUrl.TrimStart('/'));
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+                }
+                // 儲存新圖片並更新資料
+                originAuthor.ImageUrl = await SaveImageAsync(imageFile);
+            }
+
+            await _db.SaveChangesAsync();
+        }
+
+
         private async Task<string> SaveImageAsync(IFormFile imageFile)
         {
             var uploadDir = "uploads/author";

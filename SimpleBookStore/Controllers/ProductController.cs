@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SimpleBookStore.Models;
 using SimpleBookStore.Service.IService;
+using SimpleBookStore.Utility;
 using SimpleBookStore.ViewModels;
 using System.Threading.Tasks;
 
 namespace SimpleBookStore.Controllers
 {
+    [Authorize(Roles = SD.Role_Admin)]
     public class ProductController : Controller
     {
         private readonly IProductService _productService;

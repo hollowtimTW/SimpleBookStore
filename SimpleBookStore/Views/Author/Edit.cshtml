@@ -1,6 +1,7 @@
 ﻿@model Author
 
 @{
+    Layout = "_AdminLayout";
     ViewData["Title"] = "編輯作者";
 }
 
@@ -50,6 +51,7 @@
                     <div class="avatar-frame mx-auto mb-3">
                         <img id="avatarImg"
                              src="@(string.IsNullOrEmpty(Model.ImageUrl) ? "/images/NoHead.png" : Model.ImageUrl)"
+                             data-original-src="@(string.IsNullOrEmpty(Model.ImageUrl) ? "/images/NoHead.png" : Model.ImageUrl)"
                              class="avatar-img"
                              alt="頭貼" />
                     </div>
@@ -73,14 +75,16 @@
     <script>
         function previewImage(input) {
             var img = document.getElementById('avatarImg');
-            if (input.files && input.files[0]) {
+            var originalSrc = img.getAttribute('data-original-src');
+
+            if(input.files && input.files[0]) {
                 var reader = new FileReader();
                 reader.onload = function (e) {
                     img.src = e.target.result;
                 };
                 reader.readAsDataURL(input.files[0]);
-            } else {
-                img.src = "/images/NoHead.png";
+            }else{
+                img.src = originalSrc;
             }
         }
     </script>

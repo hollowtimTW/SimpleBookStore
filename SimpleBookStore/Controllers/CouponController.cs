@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SimpleBookStore.Models;
 using SimpleBookStore.Service;
 using SimpleBookStore.Service.IService;
+using SimpleBookStore.Utility;
 
 namespace SimpleBookStore.Controllers
 {
+    [Authorize(Roles = SD.Role_Admin)]
     public class CouponController : Controller
     {
         private readonly ICouponService _couponService;

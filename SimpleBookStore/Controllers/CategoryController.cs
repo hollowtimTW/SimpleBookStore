@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SimpleBookStore.Models;
 using SimpleBookStore.Service;
 using SimpleBookStore.Service.IService;
+using SimpleBookStore.Utility;
 
 namespace SimpleBookStore.Controllers
 {
+    [Authorize(Roles = SD.Role_Admin)]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;

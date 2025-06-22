@@ -29,12 +29,6 @@ namespace SimpleBookStore.Controllers
             _couponService = couponService;
         }
 
-        [AllowAnonymous]
-        public IActionResult Login()
-        {
-            return View();
-        }
-
         public IActionResult Index()
         {
             return View();

@@ -7,5 +7,6 @@ namespace SimpleBookStore.Service.IService
         Task<IEnumerable<Author>> GetAllAsync();
         Task<Author?> GetAsync(int id);
         Task CreateAsync(Author author, IFormFile imageFile);
+        Task UpdateAsync(Author author, IFormFile imageFile);
     }
 }

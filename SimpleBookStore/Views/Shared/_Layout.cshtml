@@ -1,4 +1,19 @@
-﻿<!DOCTYPE html>
+﻿@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ApplicationUser? currentUser = null;
+    bool isAdmin = false;
+    if (User?.Identity?.IsAuthenticated == true)
+    {
+        currentUser = await UserManager.GetUserAsync(User);
+        if (currentUser != null)
+        {
+            isAdmin = await UserManager.IsInRoleAsync(currentUser, SD.Role_Admin);
+        }
+    }
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -26,6 +41,28 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
+                    <div class="d-flex align-items-center ms-auto">
+                        @if (User?.Identity?.IsAuthenticated == true)
+                        {
+                            <div class="d-flex align-items-center gap-2 text-dark">
+                                <span class="me-2">@currentUser?.FullName</span>
+                                @if (isAdmin)
+                                {
+                                    <a asp-action="Index" asp-controller="Admin" class="btn btn-dark btn-sm">切換後台</a>
+                                }
+                                <form asp-controller="Account" asp-action="Logout" method="post" class="mb-0">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-sm btn-outline-dark">登出</button>
+                                </form>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">登入</a>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
         </nav>

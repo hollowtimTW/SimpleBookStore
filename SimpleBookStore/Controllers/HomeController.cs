@@ -1,6 +1,8 @@
-using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimpleBookStore.Models;
+using SimpleBookStore.Utility;
+using System.Diagnostics;
 
 namespace SimpleBookStore.Controllers
 {
@@ -14,6 +16,11 @@ namespace SimpleBookStore.Controllers
         }
 
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Product()
         {
             return View();
         }

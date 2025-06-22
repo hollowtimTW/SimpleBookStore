@@ -21,9 +21,7 @@
         (string.Equals(currentController, controller, StringComparison.OrdinalIgnoreCase) &&
          string.Equals(currentAction, action, StringComparison.OrdinalIgnoreCase))
         ? "active" : "";
-}
 
-@{
     ApplicationUser? currentUser = null;
     if (User?.Identity?.IsAuthenticated == true)
     {
@@ -51,22 +49,17 @@
                 <button class="btn btn-outline-light d-lg-none me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu">
                     <i class="bi bi-list"></i>
                 </button>
-                <a class="navbar-brand" asp-area="" asp-controller="DashBoard" asp-action="Index">SimpleBookStore</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Admin" asp-action="Index">SimpleBookStore</a>
                 <div class="d-flex align-items-center ms-auto">
                     @if (User?.Identity?.IsAuthenticated == true)
                     {
                         <div class="d-flex align-items-center gap-2 text-light">
-                            <span>@currentUser?.FullName</span>
+                            <span class="me-2">@currentUser?.FullName</span>
+                            <a asp-action="Index" asp-controller="Home" class="btn btn-dark btn-sm">切換前台</a>
                             <form asp-controller="Account" asp-action="Logout" method="post" class="mb-0">
                                 @Html.AntiForgeryToken()
                                 <button type="submit" class="btn btn-sm btn-outline-light">登出</button>
                             </form>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="nav-item">
-                            <a class="nav-link text-light" asp-controller="Account" asp-action="Login">登入</a>
                         </div>
                     }
                 </div>
