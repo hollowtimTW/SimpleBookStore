@@ -1,0 +1,125 @@
+@model VerifyEmailVM
+@{
+    ViewData["Title"] = "驗證 Email";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">驗證 Email</h3>
+            </div>
+            <div class="card-body">
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-success">
+                        @TempData["Message"]
+                    </div>
+                }
+
+                @if (TempData["ErrorMessage"] != null)
+                {
+                    <div class="alert alert-warning">
+                        @TempData["ErrorMessage"]
+                    </div>
+                }
+
+                <p class="text-info mb-3">
+                    我們已發送一個 6 位數驗證碼到：<br>
+                    <strong>@Model.Email</strong>
+                </p>
+
+                <form asp-action="VerifyEmail" method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <input asp-for="UserId" type="hidden" />
+                    <input asp-for="Email" type="hidden" />
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Code" class="form-label"></label>
+                        <input asp-for="Code" class="form-control text-center"
+                               style="font-size: 1.5rem; letter-spacing: 0.5rem;"
+                               maxlength="6" placeholder="000000"
+                               autocomplete="one-time-code" />
+                        <span asp-validation-for="Code" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <input type="submit" value="驗證" class="btn btn-primary w-100" />
+                    </div>
+                </form>
+
+                <div class="text-center">
+                    <p class="text-muted">沒有收到驗證碼？</p>
+                    <form asp-action="ResendVerificationCode" method="post" class="d-inline">
+                        <input name="userId" type="hidden" value="@Model.UserId" />
+                        <input name="email" type="hidden" value="@Model.Email" />
+                        <button type="submit" class="btn btn-link" id="resendBtn">
+                            重新發送驗證碼
+                        </button>
+                    </form>
+                </div>
+
+                <div class="text-center mt-3">
+                    <a asp-action="Login" class="btn btn-secondary">返回登入</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeInput = document.querySelector('input[name="Code"]');
+            const resendBtn = document.getElementById('resendBtn');
+
+            if (codeInput) {
+                // 自動格式化驗證碼輸入
+                codeInput.addEventListener('input', function(e) {
+                    this.value = this.value.replace(/\D/g, '').slice(0, 6);
+                });
+
+                // 自動 focus 到驗證碼輸入框
+                codeInput.focus();
+            }
+
+            // 從後端傳來的冷卻秒數
+            let cooldownSeconds = @(ViewData["CooldownSeconds"] ?? 0);
+
+            // 如果有冷卻時間，啟動倒數
+            if (cooldownSeconds > 0 && resendBtn) {
+                resendBtn.disabled = true;
+
+                const updateCooldown = () => {
+                    if (cooldownSeconds > 0) {
+                        resendBtn.textContent = `重新發送 (${cooldownSeconds}s)`;
+                        cooldownSeconds--;
+                        setTimeout(updateCooldown, 1000);
+                    } else {
+                        resendBtn.textContent = '重新發送驗證碼';
+                        resendBtn.disabled = false;
+                    }
+                };
+
+                updateCooldown();
+            }
+
+            // 點擊重發按鈕後的前端冷卻處理
+            if (resendBtn) {
+                resendBtn.addEventListener('click', function(e) {
+                    if (!this.disabled) {
+                        // 防止重複點擊
+                        this.disabled = true;
+                        this.textContent = '發送中...';
+
+                        // 表單提交後，如果頁面重新載入，會顯示後端的冷卻時間
+                        // 這裡不需要手動設定 60 秒倒數，因為後端會處理
+                    }
+                });
+            }
+        });
+    </script>
+}

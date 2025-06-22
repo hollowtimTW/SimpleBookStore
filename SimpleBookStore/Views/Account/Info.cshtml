@@ -1,0 +1,19 @@
+@{
+    ViewData["Title"] = "訊息";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                @if (ViewBag.Message != null)
+                {
+                    <div class="alert alert-info">
+                        @ViewBag.Message
+                    </div>
+                }
+                <a asp-action="Login" class="btn btn-primary">前往登入</a>
+            </div>
+        </div>
+    </div>
+</div>

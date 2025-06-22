@@ -1,0 +1,65 @@
+﻿@model ProductVM
+
+@{
+    ViewData["Title"] = "修改產品";
+}
+
+<div class="container mt-4">
+    <h2>修改產品</h2>
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Product.Id" />
+        <div class="mb-3">
+            <label class="form-label">Title</label>
+            <input asp-for="Product.Title" class="form-control" maxlength="200" />
+            <span asp-validation-for="Product.Title" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Category</label>      
+            <select asp-for="Product.CategoryId" class="form-select" asp-items="Model.CategoryList" >
+                <option value="" selected disabled>-- 請選擇分類 --</option>
+            </select>
+            <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Author</label>
+            <select asp-for="Product.AuthorId" class="form-select" asp-items="Model.AuthorList" >
+                <option value="" selected disabled>-- 請選擇作者 --</option>
+            </select>
+            <span asp-validation-for="Product.AuthorId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Publisher</label>
+            <input asp-for="Product.Publisher" class="form-control" maxlength="200" />
+            <span asp-validation-for="Product.Publisher" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Published Date</label>
+            <input asp-for="Product.PublishedDate" class="form-control" type="date" />
+            <span asp-validation-for="Product.PublishedDate" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Price</label>
+            <input asp-for="Product.Price" class="form-control" step="1"/>
+            <span asp-validation-for="Product.Price" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea asp-for="Product.Description" class="form-control" maxlength="1000" rows="2"></textarea>
+        </div>
+        <input type="hidden" asp-for="Product.IsActive" />
+        <button type="submit" class="btn btn-success">儲存</button>
+        <a asp-action="ProductIndex" asp-controller="Admin" class="btn btn-secondary">返回</a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.3.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#Product_Description'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+}

@@ -1,0 +1,67 @@
+﻿@model Coupon
+
+@{
+    ViewData["Title"] = "新增優惠券";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">新增優惠券</h2>
+    <form asp-action="Create" method="post" id="createCouponForm">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-6">
+                <div class="mb-3">
+                    <label asp-for="Code" class="form-label">優惠碼</label>
+                    <input asp-for="Code" class="form-control" maxlength="50" />
+                    <span asp-validation-for="Code" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label">描述</label>
+                    <textarea asp-for="Description" class="form-control" maxlength="200" rows="2"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="DiscountAmount" class="form-label">折扣金額</label>
+                    <input asp-for="DiscountAmount" class="form-control" min="0" />
+                    <span asp-validation-for="DiscountAmount" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="MinimumSpend" class="form-label">最低消費金額</label>
+                    <input asp-for="MinimumSpend" class="form-control" min="0" />
+                    <span asp-validation-for="MinimumSpend" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row">
+                    <div class="col">
+                        <label asp-for="StartDate" class="form-label">開始日期</label>
+                        <input asp-for="StartDate" class="form-control" type="date" />
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                    <div class="col">
+                        <label asp-for="EndDate" class="form-label">結束日期</label>
+                        <input asp-for="EndDate" class="form-control" type="date" />
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12 d-flex flex-column align-items-center">
+                <button type="submit" class="btn btn-success px-5 mb-2">儲存</button>
+                <a asp-action="CouponIndex" asp-controller="Admin" class="btn btn-secondary px-5">返回列表</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $('#createCouponForm').on('submit', function (e) {
+            var start = $('#StartDate').val();
+            var end = $('#EndDate').val();
+            if (start && end && end < start) {
+                alert('結束日期不能小於開始日期！');
+                e.preventDefault();
+            }
+        });
+    </script>
+}

@@ -1,0 +1,28 @@
+@{
+    ViewData["Title"] = "確認 Email";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Email 確認</h3>
+            </div>
+            <div class="card-body">
+                @if (ViewBag.Message != null)
+                {
+                    <div class="alert alert-success">
+                        @ViewBag.Message
+                    </div>
+                    <a asp-action="Login" class="btn btn-primary">前往登入</a>
+                }
+                else
+                {
+                    <div class="alert alert-danger">
+                        Email 確認失敗。請聯絡系統管理員。
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
