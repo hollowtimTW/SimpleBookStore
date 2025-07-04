@@ -1,0 +1,106 @@
+﻿@model OrderHeader
+
+@{
+    ViewData["Title"] = "訂單詳情";
+    var hasDiscount = Model.Discount > 0;
+    var originalTotal = hasDiscount ? Model.OrderTotal + (decimal)Model.Discount : Model.OrderTotal;
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">訂單詳情</h2>
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">商品明細</h5>
+                    <div class="table-responsive">
+                        <table class="table table-bordered align-middle text-center">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>商品名稱</th>
+                                    <th>單價</th>
+                                    <th>數量</th>
+                                    <th>小計</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var detail in Model.OrderDetails)
+                                {
+                                    <tr>
+                                        <td>@detail.ProductName</td>
+                                        <td>@detail.Price.ToString("C0", new CultureInfo("zh-TW"))</td>
+                                        <td>@detail.Count</td>
+                                        <td>@((detail.Price* detail.Count).ToString("C0", new CultureInfo("zh-TW")))</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">訂單資訊</h5>
+                    <dl class="row">
+                        <dt class="col-sm-3">訂單編號</dt>
+                        <dd class="col-sm-9">@Model.OrderHeaderId</dd>
+
+                        <dt class="col-sm-3">姓名</dt>
+                        <dd class="col-sm-9">@Model.Name</dd>
+
+                        <dt class="col-sm-3">電話</dt>
+                        <dd class="col-sm-9">@Model.Phone</dd>
+
+                        <dt class="col-sm-3">地址</dt>
+                        <dd class="col-sm-9">@Model.Address</dd>
+
+                        <dt class="col-sm-3">訂單日期</dt>
+                        <dd class="col-sm-9">@Model.OrderTime.ToString("yyyy-MM-dd HH:mm")</dd>
+
+                        <dt class="col-sm-3">狀態</dt>
+                        <dd class="col-sm-9">@Model.Status</dd>
+                    </dl>
+                    <hr />
+                    <div class="row mb-2">
+                        <div class="col-sm-3 fw-bold">折抵金額：</div>
+                        <div class="col-sm-9">
+                            @if (hasDiscount)
+                            {
+                                <span class="text-danger">-@Model.Discount.ToString("C0", new CultureInfo("zh-TW"))</span>
+                            }
+                            else
+                            {
+                                <span class="text-muted">無</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-3 fw-bold">總計：</div>
+                        <div class="col-sm-9">
+                            @if (hasDiscount)
+                            {
+                                <span style="text-decoration:line-through;color:#999;">
+                                    @originalTotal.ToString("C0", new CultureInfo("zh-TW"))
+                                </span>
+                                <span class="ms-2 text-primary fw-bold" style="font-size:1.2em;">
+                                    @(Model.OrderTotal.ToString("C0", new CultureInfo("zh-TW")))
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="text-danger fw-bold" style="font-size:1.2em;">
+                                    @(Model.OrderTotal.ToString("C0", new CultureInfo("zh-TW")))
+                                </span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <a asp-action="MyOrders" asp-controller="Order" class="btn btn-outline-primary">返回</a>
+            </div>
+        </div>
+    </div>
+</div>

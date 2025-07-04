@@ -21,6 +21,13 @@ namespace SimpleBookStore.Service
             return await _db.Authors.ToListAsync();
         }
 
+        public async Task<IEnumerable<Author>> GetAllWithProductsAsync()
+        {
+            return await _db.Authors
+                .Include(a => a.Products)
+                .ToListAsync();
+        }
+
         public async Task<Author?> GetAsync(int id)
         {
             return await _db.Authors.FirstOrDefaultAsync(p => p.Id == id);
@@ -52,9 +59,9 @@ namespace SimpleBookStore.Service
                 if (!string.IsNullOrEmpty(originAuthor.ImageUrl))
                 {
                     var oldImagePath = Path.Combine(_env.WebRootPath, originAuthor.ImageUrl.TrimStart('/'));
-                    if (System.IO.File.Exists(oldImagePath))
+                    if (File.Exists(oldImagePath))
                     {
-                        System.IO.File.Delete(oldImagePath);
+                        File.Delete(oldImagePath);
                     }
                 }
                 // 儲存新圖片並更新資料

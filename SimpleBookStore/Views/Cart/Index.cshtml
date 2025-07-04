@@ -1,0 +1,124 @@
+﻿@model ShoppingCartVM
+@{
+    ViewData["Title"] = "我的購物車";
+}
+
+<div class="container my-5">
+    <h2 class="mb-4"><i class="bi bi-cart3"></i> 我的購物車</h2>
+    @if (Model?.ShoppingCart != null && Model.ShoppingCart.Any())
+    {
+        <div class="table-responsive">
+            <table class="table align-middle table-bordered bg-white shadow-sm">
+                <thead class="table-light">
+                    <tr>
+                        <th class="text-center">商品</th>
+                        <th class="text-center">單價</th>
+                        <th class="text-center">數量</th>
+                        <th class="text-center">總計</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ShoppingCart)
+                    {
+                        <tr>
+                            <td class="d-flex align-items-center">
+                                <img src="@item.Product?.ImageUrl" class="me-3 rounded" style="width:60px;height:60px;object-fit:contain;">
+                                <div>
+                                    <div class="fw-bold">@item.Product?.Title</div>
+                                    <div class="text-muted small">@item.Product?.Author?.Name</div>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                @item.UnitPrice.ToString("C0", new CultureInfo("zh-TW"))
+                            </td>
+                            <td class="text-center" style="max-width: 120px;">
+                                <div class="d-flex align-items-center gap-2">
+                                    <!-- 減少數量 -->
+                                    <form asp-action="ChangeQuantity" asp-controller="Cart" method="post" class="mb-0">
+                                        <input type="hidden" name="cartId" value="@item.Id" />
+                                        <input type="hidden" name="delta" value="-1" />
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary" title="減少">
+                                            <i class="bi bi-dash"></i>
+                                        </button>
+                                    </form>
+                                    <span class="mx-2">@item.Quantity</span>
+                                    <!-- 增加數量 -->
+                                    <form asp-action="ChangeQuantity" asp-controller="Cart" method="post" class="mb-0">
+                                        <input type="hidden" name="cartId" value="@item.Id" />
+                                        <input type="hidden" name="delta" value="1" />
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary" title="增加">
+                                            <i class="bi bi-plus"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                @((item.UnitPrice * item.Quantity).ToString("C0", new CultureInfo("zh-TW")))
+                            </td>
+                            <td class="text-center">
+                                <form asp-action="Remove" asp-controller="Cart" method="post" class="mb-0">
+                                    <input type="hidden" name="cartId" value="@item.Id" />
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" title="移除">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="row align-items-center mt-3">
+            <div class="col-md-6 mb-2 mb-md-0">
+                <form asp-action="CouponValidation" asp-controller="Cart" method="post" class="input-group w-50">
+                    <input id="couponCode" name="couponCode" type="text" class="form-control" placeholder="輸入優惠券代碼" value="@Model.CouponValidation?.CouponCode">
+                    <button type="submit" class="btn btn-secondary">套用</button>
+                </form>
+                @if (Model.CouponValidation != null && !Model.CouponValidation.IsValid)
+                {
+                    <div class="alert alrt alert-danger py-1 mt-2 d-inline-block">
+                        @Model.CouponValidation.Message
+                    </div>
+                }
+                else if (Model.CouponValidation != null && Model.CouponValidation.IsValid)
+                {
+                    <div class="alert alert-success py-1 mt-2 d-inline-block">
+                        已套用優惠券！
+                    </div>
+                }
+            </div>
+            <div class="col-md-6 d-flex flex-column align-items-end">
+                <span class="fs-5 fw-bold mb-3">
+                    總計：
+                    @if (Model.CouponValidation != null && Model.CouponValidation.IsValid)
+                    {
+                        <span class="text-muted text-decoration-line-through me-2">
+                            @Model.Total.ToString("C0", new System.Globalization.CultureInfo("zh-TW"))
+                        </span>
+                        <span class="text-danger">
+                            @((Model.Total - Model.CouponValidation.DiscountAmount).ToString("C0", new System.Globalization.CultureInfo("zh-TW")))
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="text-danger">
+                            @Model.Total.ToString("C0", new System.Globalization.CultureInfo("zh-TW"))
+                        </span>
+                    }
+                </span>
+                <a asp-action="CheckOut" asp-controller="Order" class="btn btn-primary btn-lg px-5">前往結帳</a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center my-5">
+            <i class="bi bi-emoji-frown" style="font-size:2rem;"></i><br />
+            你的購物車是空的
+        </div>
+        <div class="text-center">
+            <a asp-action="Index" asp-controller="Product" class="btn btn-primary btn-lg px-5">返回商品列表</a>
+        </div>
+    }
+</div>

@@ -1,0 +1,163 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+@section Styles {
+    <style>
+        /* 隱藏 input[type=number] 的上下箭頭 */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+        /* 商品主圖固定最大尺寸，等比例完整顯示 */
+        .product-detail-img-box {
+            width: 100%;
+            max-width: 340px;
+            height: 340px;
+            margin: 0 auto 1rem auto;
+            background: #fff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,.05);
+        }
+
+            .product-detail-img-box img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                background: #fff;
+                display: block;
+            }
+
+            .product-detail-img-box .no-img {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #bbb;
+                font-size: 1.2rem;
+            }
+    </style>
+}
+
+<div class="bg-light rounded-3 shadow-sm mb-4 px-4 py-2">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0" style="--bs-breadcrumb-divider: '›';">
+            <li class="breadcrumb-item">
+                <a asp-action="Index" asp-controller="Home" class="link-primary text-decoration-none">首頁</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-action="Index" asp-controller="Product" class="link-primary text-decoration-none">商品列表</a>
+            </li>
+        </ol>
+    </nav>
+</div>
+
+<div class="container py-4">
+    <div class="row g-4">
+        <!-- 左側：商品圖 -->
+        <div class="col-md-5">
+            <div class="product-detail-img-box mb-3">
+                @if (Model.ImageUrl != null)
+                {
+                    <img src="@Model.ImageUrl" alt="@Model.Title" />
+                }
+                else
+                {
+                    <div class="no-img">無圖片</div>
+                }
+            </div>
+        </div>
+        <!-- 右側：商品資訊 -->
+        <div class="col-md-7 d-flex flex-column">
+            <h2 class="mb-2">@Model.Title</h2>
+            <div class="mb-2">
+                @if (!string.IsNullOrEmpty(Model.Category?.Name))
+                {
+                    <span class="badge bg-secondary">@Model.Category.Name</span>
+                }
+                @if (Model.Author != null)
+                {
+                    <span class="ms-2 text-muted">@Model.Author.Name</span>
+                }
+            </div>
+            <div class="mb-2 fs-3 text-danger fw-bold">
+                @Model.Price.ToString("C0", new CultureInfo("zh-TW"))
+            </div>
+            <form id="detailOrderForm" method="post" asp-controller="Cart" asp-action="Add">
+                <input type="hidden" name="ProductId" value="@Model.Id" />
+                <div class="mb-3 d-flex align-items-center gap-2 flex-wrap">
+                    <label for="detailQuantity" class="form-label mb-0">數量</label>
+                    <div class="input-group" style="width:150px;">
+                        <button class="btn btn-outline-secondary" type="button" id="detailQtyMinus">-</button>
+                        <input type="number" class="form-control text-center" id="detailQuantity" name="Quantity" min="1" value="1" required>
+                        <button class="btn btn-outline-secondary" type="button" id="detailQtyPlus">+</button>
+                    </div>
+                </div>
+                <div class="mb-4 px-5 d-flex flex-column flex-sm-row gap-2">
+                    <button type="submit" class="btn btn-outline-primary flex-fill" name="actionType" value="add">
+                        <i class="bi bi-cart2 me-1"></i>加入購物車
+                    </button>
+                    <button type="submit" class="btn btn-primary flex-fill" name="actionType" value="buy">
+                        <i class="bi bi-lightning-charge-fill me-1"></i>立即下單
+                    </button>
+                </div>
+            </form>
+            <div class="mb-4">
+                <h5>商品介紹</h5>
+                <div class="border rounded bg-light p-3">
+                    @Html.Raw(Model.Description)
+                </div>
+            </div>
+        </div>
+        <!-- 作者卡片 -->
+        @if (Model.Author != null)
+        {
+            <div class="col-12 col-md-5 order-md-last">
+                <div class="card border-0 bg-light rounded-3 shadow-sm text-center">
+                    <div class="card-body">
+                        <img class="rounded-circle mb-2" style="width:64px;height:64px;object-fit:contain;"
+                             src="@(string.IsNullOrEmpty(Model.Author.ImageUrl) ? "/images/Nohead.png" : Model.Author.ImageUrl)"
+                             alt="作者頭像">
+                        <div>
+                            <a asp-controller="Author" asp-action="Detail" asp-route-id="@Model.Author.Id" class="fw-bold fs-5 text-decoration-none">
+                                @Model.Author.Name
+                            </a>
+                        </div>
+                        @if (!string.IsNullOrWhiteSpace(Model.Author.Bio))
+                        {
+                            <div class="small text-secondary mt-1">@Model.Author.Bio</div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // 數量加減
+        $('#detailQtyMinus').on('click', function() {
+            var $qty = $('#detailQuantity');
+            var val = parseInt($qty.val()) || 1;
+            if(val > 1) $qty.val(val - 1);
+        });
+        $('#detailQtyPlus').on('click', function() {
+            var $qty = $('#detailQuantity');
+            var val = parseInt($qty.val()) || 1;
+            $qty.val(val + 1);
+        });
+    </script>
+}

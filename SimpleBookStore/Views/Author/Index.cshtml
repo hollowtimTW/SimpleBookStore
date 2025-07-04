@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Author>
+
+@{
+    ViewData["Title"] = "作者列表";
+}
+
+<div class="bg-light rounded-3 shadow-sm mb-4 px-4 py-2">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0" style="--bs-breadcrumb-divider: '›';">
+            <li class="breadcrumb-item">
+                <a asp-action="Index" asp-controller="Home" class="link-primary text-decoration-none">
+                    首頁
+                </a>
+            </li>
+        </ol>
+    </nav>
+</div>
+
+<div class="container py-4">
+    <h2 class="mb-4">作者列表</h2>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        @foreach (var author in Model)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <img src="@(string.IsNullOrEmpty(author.ImageUrl) ? "/images/Nohead.png" : author.ImageUrl)"
+                             class="rounded-circle mb-3"
+                             style="width:80px;height:80px;object-fit:cover;" alt="@author.Name">
+                        <h5 class="card-title mb-1">@author.Name</h5>
+                        <div class="small text-secondary mb-2 text-truncate" style="min-height:1.5em;">
+                            @(string.IsNullOrWhiteSpace(author.Bio) ? "" : (author.Bio.Length > 30 ? author.Bio.Substring(0, 30) + "..." : author.Bio))
+                        </div>
+                        <div class="mb-2 text-muted small">
+                            <i class="bi bi-book me-1"></i> @author.Products.Count() 本著作
+                        </div>
+                        <a asp-action="Detail" asp-controller="Author" asp-route-id="@author.Id"
+                           class="btn btn-outline-primary btn-sm w-100">查看詳細</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,85 +1,38 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using SimpleBookStore.Models;
-using SimpleBookStore.Service;
+﻿using Microsoft.AspNetCore.Mvc;
+using SimpleBookStore.Models.ViewModels;
 using SimpleBookStore.Service.IService;
-using SimpleBookStore.Utility;
-using System.Threading.Tasks;
 
 namespace SimpleBookStore.Controllers
 {
-    [Authorize(Roles = SD.Role_Admin)]
     public class AuthorController : Controller
     {
-        private readonly IAuthorService _authorService; 
-        private readonly ILogger<AuthorController> _logger;
-        public AuthorController(IAuthorService authorService, ILogger<AuthorController> logger)
+        private readonly IAuthorService _authorService;
+        private readonly IProductService _productService;
+        public AuthorController(
+            IAuthorService authorService, 
+            IProductService productService)
         {
             _authorService = authorService;
-            _logger = logger;
-        }
-        public IActionResult Create()
-        {
-            return View();
+            _productService = productService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(Author author, IFormFile? imageFile = null)
+        public async Task<IActionResult> Index()
         {
-            if (!ModelState.IsValid)
-            {
-                foreach (var key in ModelState.Keys)
-                {
-                    var errors = ModelState[key]?.Errors;
-                    if (errors != null && errors.Count > 0)
-                    {
-                        foreach (var error in errors)
-                        {
-                            _logger.LogWarning($"欄位 {key} 發生錯誤：{error.ErrorMessage}");
-                        }
-                    }
-                }
-                return View(author);
-            }
-
-            try
-            {
-                await _authorService.CreateAsync(author, imageFile);
-                TempData["Success"] = "操作成功！";
-                return RedirectToAction("AuthorIndex", "Admin");
-            }
-            catch
-            {
-                TempData["Error"] = "發生錯誤，請稍後再試。";
-                return View(author);
-            }
+            var authors = await _authorService.GetAllWithProductsAsync();
+            return View(authors);
         }
 
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Detail(int id)
         {
-            var author = await _authorService.GetAsync(id); 
-            return View(author);
-        }
+            var author = await _authorService.GetAsync(id);
+            var products = await _productService.GetByAuthorAsync(id);
 
-        [HttpPost]
-        public async Task<IActionResult> Edit(Author author, IFormFile? imageFile = null)
-        {
-            if (!ModelState.IsValid)
+            var vm = new AuthorDetailVM
             {
-                return View(author);
-            }
-
-            try
-            {
-                await _authorService.UpdateAsync(author, imageFile);
-                TempData["Success"] = "操作成功！";
-                return RedirectToAction("AuthorIndex", "Admin");
-            }
-            catch
-            {
-                TempData["Error"] = "發生錯誤，請稍後再試。";
-                return View(author);
-            }
+                Author = author,
+                Products = products
+            };
+            return View(vm);
         }
     }
 }

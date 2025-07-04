@@ -1,181 +1,71 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using SimpleBookStore.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using SimpleBookStore.Service.IService;
-using SimpleBookStore.Utility;
-using SimpleBookStore.ViewModels;
-using System.Threading.Tasks;
+using SimpleBookStore.Models.ViewModels;
 
 namespace SimpleBookStore.Controllers
 {
-    [Authorize(Roles = SD.Role_Admin)]
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
-        private readonly IAuthorService _authorService;
-
         public ProductController(
             IProductService productService,
-            ICategoryService categoryService,
-            IAuthorService authorService
-            )
+            ICategoryService categoryService)
         {
             _productService = productService;
             _categoryService = categoryService;
-            _authorService = authorService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Index(
+            int page = 1,
+            string sort_by = "created_at",
+            string order_by = "desc",
+            int limit = 12)
         {
-            var categories = await _categoryService.GetActiveCategories();
-            var authors = await _authorService.GetAllAsync();
-
-            var viewModel = new ProductVM
-            {
-                Product = null,
-                CategoryList = categories.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList(),
-                AuthorList = authors.Select(a => new SelectListItem { Value = a.Id.ToString(), Text = a.Name }).ToList()
-            };
-
-            return View(viewModel);
+            var vm = await _productService.GetPagedProductsAsync(limit, page, sort_by, order_by);
+            return View(vm);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ProductVM model)
-        {
-            if (!ModelState.IsValid)
-            {
-                var categories = await _categoryService.GetActiveCategories();
-                var authors = await _authorService.GetAllAsync();
-
-                var viewModel = new ProductVM
-                {
-                    Product = model.Product,
-                    CategoryList = categories.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList(),
-                    AuthorList = authors.Select(a => new SelectListItem { Value = a.Id.ToString(), Text = a.Name }).ToList()
-                };
-                return View(viewModel);
-            }
-
-            try
-            {
-                await _productService.CreateAsync(model.Product);
-                TempData["Success"] = "操作成功！";
-                return RedirectToAction("ProductIndex", "Admin");
-            }
-            catch
-            {
-                var categories = await _categoryService.GetActiveCategories();
-                var authors = await _authorService.GetAllAsync();
-
-                var viewModel = new ProductVM
-                {
-                    Product = model.Product,
-                    CategoryList = categories.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList(),
-                    AuthorList = authors.Select(a => new SelectListItem { Value = a.Id.ToString(), Text = a.Name }).ToList()
-                };
-                TempData["Error"] = "發生錯誤，請稍後再試。";
-                return View(viewModel);
-            }
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Detail(int id)
         {
             var product = await _productService.GetAsync(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
+            return View(product);
+        }
 
-            var categories = await _categoryService.GetActiveCategories();
-            var authors = await _authorService.GetAllAsync();
+        public async Task<IActionResult> Category(int id)
+        {
+            var product = await _productService.GetByCategoryAsync(id);
+            var category = await _categoryService.GetAsync(id);
+            ViewBag.Name = category?.Name;
+            return View(product);
+        }
 
-            var viewModel = new ProductVM
+        [HttpGet]
+        public async Task<IActionResult> Search(
+             string keyword, int? categoryId, int? priceFrom, int? priceTo,
+             string sortBy = "date_desc", int page = 1, int limit = 12)
+        {
+            var categoryList = await _categoryService.GetAllAsync();
+
+            var (productList, totalPages, totalCount) = await _productService.SearchProductsAsync(
+                keyword, categoryId, priceFrom, priceTo, sortBy, page, limit
+            );
+
+            var vm = new ProductSearchVM
             {
-                Product = product,
-                CategoryList = categories.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList(),
-                AuthorList = authors.Select(a => new SelectListItem { Value = a.Id.ToString(), Text = a.Name }).ToList()
+                Keyword = keyword,
+                CategoryId = categoryId,
+                CategoryList = categoryList,
+                PriceFrom = priceFrom,
+                PriceTo = priceTo,
+                SortBy = sortBy,
+                ProductList = productList,
+                CurrentPage = page,
+                TotalPages = totalPages,
+                PageSize = limit
             };
 
-            return View(viewModel);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(ProductVM model)
-        {
-            if (!ModelState.IsValid)
-            {
-                var categories = await _categoryService.GetActiveCategories();
-                var authors = await _authorService.GetAllAsync();
-
-                var viewModel = new ProductVM
-                {
-                    Product = model.Product,
-                    CategoryList = categories.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList(),
-                    AuthorList = authors.Select(a => new SelectListItem { Value = a.Id.ToString(), Text = a.Name }).ToList()
-                };
-
-                return View(viewModel);
-            }
-
-            try
-            {
-                await _productService.UpdateAsync(model.Product);
-                TempData["Success"] = "操作成功！";
-                return RedirectToAction("ProductIndex", "Admin");
-            }
-            catch
-            {
-                var categories = await _categoryService.GetActiveCategories();
-                var authors = await _authorService.GetAllAsync();
-
-                var viewModel = new ProductVM
-                {
-                    Product = model.Product,
-                    CategoryList = categories.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList(),
-                    AuthorList = authors.Select(a => new SelectListItem { Value = a.Id.ToString(), Text = a.Name }).ToList()
-                };
-                TempData["Error"] = "發生錯誤，請稍後再試。";
-                return View(viewModel);
-            }
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id)
-        {
-            try
-            {
-                await _productService.DeleteAsync(id);
-                TempData["Success"] = "操作成功";
-            }
-            catch
-            {
-                TempData["Error"] = "發生錯誤，請稍後再試";
-            }
-            return RedirectToAction("ProductIndex", "Admin");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ToggleActive(int id, bool? isActive)
-        {
-            try
-            {
-                await _productService.ToggleActiveAsync(id, isActive == true);
-                TempData["Success"] = "操作成功。";
-            }
-            catch
-            {
-                TempData["Error"] = "發生錯誤，請稍後再試。";
-            }
-            return RedirectToAction("ProductIndex", "Admin");
+            return View(vm);
         }
     }
 }

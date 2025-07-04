@@ -19,8 +19,8 @@ namespace SimpleBookStore.Service
 
         public async Task SendEmailAsync(string toEmail, string subject, string body)
         {
-            var client = new HttpClient();
-            client.DefaultRequestHeaders.Add("api-key", _apiKey);
+            _httpClient.DefaultRequestHeaders.Clear();
+            _httpClient.DefaultRequestHeaders.Add("api-key", _apiKey);
 
             var payload = new
             {
@@ -33,7 +33,7 @@ namespace SimpleBookStore.Service
             var json = JsonSerializer.Serialize(payload);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await client.PostAsync("https://api.brevo.com/v3/smtp/email", content);
+            var response = await _httpClient.PostAsync("https://api.brevo.com/v3/smtp/email", content);
             var result = await response.Content.ReadAsStringAsync();
         }
     }

@@ -1,7 +1,5 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using SimpleBookStore.Data;
 using SimpleBookStore.Models;
 using SimpleBookStore.Service;
@@ -19,7 +17,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         new MySqlServerVersion(new Version(8, 0, 30))
     ));
 
-
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     //密碼設定
@@ -34,13 +31,20 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 
     // 帳戶鎖定設定
     options.Lockout.AllowedForNewUsers = true;
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
-    options.Lockout.MaxFailedAccessAttempts = 3;
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);;
+    options.Lockout.MaxFailedAccessAttempts = 5;
 })
 .AddEntityFrameworkStores<AppDbContext>()
 .AddErrorDescriber<CustomIdentityErrorDescriber>() // 自訂錯誤描述
 .AddDefaultTokenProviders();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.ExpireTimeSpan = TimeSpan.FromDays(30); 
+    options.SlidingExpiration = true;
+});
+
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddTransient<IVerificationCodeService, VerificationCodeService>();
 builder.Services.AddHttpClient<EmailService>();
@@ -49,8 +53,11 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddScoped<ICouponService, CouponService>();
+builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 var app = builder.Build();
+Stripe.StripeConfiguration.ApiKey = builder.Configuration["StripeKey"];
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

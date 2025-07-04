@@ -1,0 +1,123 @@
+﻿@model AdProductVM
+
+@{
+    ViewData["Title"] = "修改產品";
+}
+
+@section Styles {
+    <style>
+        .image-preview-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .image-preview-box {
+            width: 260px;
+            height: 260px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+        }
+
+        #avatarImg {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #fff;
+            display: block;
+        }
+    </style>
+}
+
+<div class="container mt-4">
+    <h2>修改產品</h2>
+    <form asp-area="Admin" asp-action="Edit" asp-controller="Product" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Product.Id" />
+        <div class="mb-3">
+            <label class="form-label">Title</label>
+            <input asp-for="Product.Title" class="form-control" maxlength="200" />
+            <span asp-validation-for="Product.Title" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Category</label>
+            <select asp-for="Product.CategoryId" class="form-select" asp-items="Model.CategoryList">
+                <option value="" selected disabled>-- 請選擇分類 --</option>
+            </select>
+            <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Author</label>
+            <select asp-for="Product.AuthorId" class="form-select" asp-items="Model.AuthorList">
+                <option value="" selected disabled>-- 請選擇作者 --</option>
+            </select>
+            <span asp-validation-for="Product.AuthorId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Publisher</label>
+            <input asp-for="Product.Publisher" class="form-control" maxlength="200" />
+            <span asp-validation-for="Product.Publisher" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Published Date</label>
+            <input asp-for="Product.PublishedDate" class="form-control" type="date" />
+            <span asp-validation-for="Product.PublishedDate" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Price</label>
+            <input asp-for="Product.Price" class="form-control" step="1" />
+            <span asp-validation-for="Product.Price" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea asp-for="Product.Description" class="form-control" maxlength="1000" rows="2"></textarea>
+        </div>
+        <div class="image-preview-wrapper">
+            <label class="form-label mb-2">產品圖片</label>
+            <div class="image-preview-box mb-2">
+                <img id="avatarImg"
+                     src="@(Model.Product.ImageUrl ?? "/images/NoImg.jpg")"
+                     data-original-src="@(Model.Product.ImageUrl ?? "/images/NoImg.jpg")"
+                     alt="圖片預覽" />
+            </div>
+            <button type="button" class="btn btn-outline-primary" onclick="document.getElementById('ImageFileInput').click()">編輯圖片</button>
+            <input type="file" id="ImageFileInput" name="ImageFile" class="d-none" accept="image/*" onchange="previewImage(this)" />
+        </div>
+        <input type="hidden" asp-for="Product.IsActive" />
+        <button type="submit" class="btn btn-success">儲存</button>
+        <a asp-area="Admin" asp-action="Index" asp-controller="Product" class="btn btn-secondary">返回</a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.3.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#Product_Description'))
+            .catch(error => {
+                console.error(error);
+            });
+
+        function previewImage(input) {
+            var img = document.getElementById('avatarImg');
+            var originalSrc = img.getAttribute('data-original-src');
+
+            if(input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }else{
+                img.src = originalSrc;
+            }
+        }
+    </script>
+}

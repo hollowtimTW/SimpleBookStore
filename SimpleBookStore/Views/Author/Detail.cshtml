@@ -1,0 +1,81 @@
+﻿@using SimpleBookStore.Models.ViewModels
+@model AuthorDetailVM
+
+@{
+    ViewData["Title"] = @Model.Author.Name + " - 作者介紹";
+}
+
+<div class="bg-light rounded-3 shadow-sm mb-4 px-4 py-2">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0" style="--bs-breadcrumb-divider: '›';">
+            <li class="breadcrumb-item">
+                <a asp-action="Index" asp-controller="Home" class="link-primary text-decoration-none">
+                    首頁
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-action="Index" asp-controller="Author" class="link-primary text-decoration-none">
+                    作者列表
+                </a>
+            </li>
+        </ol>
+    </nav>
+</div>
+
+<div class="container py-4">
+
+    <!-- 作者介紹卡 -->
+    <div class="card mb-4 shadow-sm border-0 bg-light">
+        <div class="row g-0 align-items-center">
+            <div class="col-auto p-4">
+                <img src="@(string.IsNullOrEmpty(Model.Author.ImageUrl) ? "/images/Nohead.png" : Model.Author.ImageUrl)"
+                     alt="作者頭像"
+                     class="rounded-circle"
+                     style="width:96px; height:96px; object-fit:cover;">
+            </div>
+            <div class="col p-2">
+                <h3 class="mb-1">@Model.Author.Name</h3>
+                @if (!string.IsNullOrWhiteSpace(Model.Author.Bio))
+                {
+                    <div class="text-secondary mb-1">@Model.Author.Bio</div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- 作品區 -->
+    <h5 class="mb-3">著作列表</h5>
+    @if (Model.Products != null && Model.Products.Any())
+    {
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+            @foreach (var item in Model.Products)
+            {
+                <div class="col">
+                    <a asp-controller="Product" asp-action="Detail" asp-route-id="@item.Id"
+                       class="card h-100 shadow-sm text-decoration-none text-dark product-card">
+                        @if (item.ImageUrl != null)
+                        {
+                            <img src="@item.ImageUrl" class="card-img-top" alt="@item.Title" style="height:180px;object-fit:cover;">
+                        }
+                        else
+                        {
+                            <div class="bg-light d-flex align-items-center justify-content-center" style="height:180px;">
+                                <span class="text-muted">無封面</span>
+                            </div>
+                        }
+                        <div class="card-body pb-1">
+                            <h6 class="card-title text-truncate mb-2" title="@item.Title">@item.Title</h6>
+                            <p class="mb-1 small text-secondary">
+                                <span class="badge rounded-pill bg-secondary">@item.Category?.Name</span>
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center">此作者尚無著作</div>
+    }
+</div>

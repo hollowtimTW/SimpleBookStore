@@ -6,12 +6,12 @@
     // 定義 sidebar menu 資料
     var menuItems = new[]
    {
-    new { Text = "首頁", Icon = "bi-house", Controller = "Admin", Action = "Index" },
-    new { Text = "訂單管理", Icon = "bi-list-check", Controller = "Admin", Action = "OrderIndex" },
-    new { Text = "商品管理", Icon = "bi-book", Controller = "Admin", Action = "ProductIndex" },
-    new { Text = "分類管理", Icon = "bi-tags", Controller = "Admin", Action = "CategoryIndex" },
-    new { Text = "作者管理", Icon = "bi-person", Controller = "Admin", Action = "AuthorIndex" },
-    new { Text = "優惠卷管理", Icon = "bi-ticket-perforated", Controller = "Admin", Action = "CouponIndex" }
+    new { Text = "首頁", Icon = "bi-house", Controller = "Home", Action = "Index" },
+    new { Text = "訂單管理", Icon = "bi-list-check", Controller = "Order", Action = "Index" },
+    new { Text = "商品管理", Icon = "bi-book", Controller = "Product", Action = "Index" },
+    new { Text = "分類管理", Icon = "bi-tags", Controller = "Category", Action = "Index" },
+    new { Text = "作者管理", Icon = "bi-person", Controller = "Author", Action = "Index" },
+    new { Text = "優惠卷管理", Icon = "bi-ticket-perforated", Controller = "Coupon", Action = "Index" }
     };
 
     string currentController = ViewContext.RouteData.Values["controller"]?.ToString()!;
@@ -49,13 +49,13 @@
                 <button class="btn btn-outline-light d-lg-none me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu">
                     <i class="bi bi-list"></i>
                 </button>
-                <a class="navbar-brand" asp-area="" asp-controller="Admin" asp-action="Index">SimpleBookStore</a>
+                <a class="navbar-brand" asp-area="Admin" asp-controller="Home" asp-action="Index">SimpleBookStore</a>
                 <div class="d-flex align-items-center ms-auto">
                     @if (User?.Identity?.IsAuthenticated == true)
                     {
                         <div class="d-flex align-items-center gap-2 text-light">
                             <span class="me-2">@currentUser?.FullName</span>
-                            <a asp-action="Index" asp-controller="Home" class="btn btn-dark btn-sm">切換前台</a>
+                            <a asp-area="" asp-action="Index" asp-controller="Home" class="btn btn-light btn-sm">切換前台</a>
                             <form asp-controller="Account" asp-action="Logout" method="post" class="mb-0">
                                 @Html.AntiForgeryToken()
                                 <button type="submit" class="btn btn-sm btn-outline-light">登出</button>
@@ -81,7 +81,7 @@
                     {
                         <li class="nav-item">
                             <a class="nav-link text-white @(isActive(item.Controller, item.Action))"
-                               asp-area=""
+                               asp-area="Admin"
                                asp-controller="@item.Controller"
                                asp-action="@item.Action">
                                 <i class="bi @item.Icon"></i> @item.Text
@@ -100,7 +100,7 @@
                     {
                         <li class="nav-item my-2">
                             <a class="nav-link text-white @(isActive(item.Controller, item.Action))"
-                               asp-area=""
+                               asp-area="Admin"
                                asp-controller="@item.Controller"
                                asp-action="@item.Action">
                                 <i class="bi @item.Icon"></i> @item.Text

@@ -1,0 +1,168 @@
+﻿@using SimpleBookStore.Models.ViewModels
+@model ProductSearchVM
+
+@{
+    ViewData["Title"] = "商品查詢";
+}
+
+@section Styles{
+    <style>
+        /* 直接重用商品列表的卡片樣式 */
+        .product-card {
+            transition: box-shadow .2s;
+        }
+        .product-card:hover {
+            box-shadow: 0 0 0.75rem rgba(0,0,0,.13);
+            border-color: #0d6efd;
+        }
+        .card-title {
+            min-height: 2.2em;
+        }
+        .pagination .page-item .page-link {
+            min-width: 38px;
+            text-align: center;
+        }
+        .quick-order-btn {
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            color: #1b6ec2;
+            transition: background 0.2s, color 0.2s;
+        }
+        .quick-order-btn:hover, .quick-order-btn:focus {
+            background-color: orange;
+            color: #fff;
+            border-color: orange;
+        }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+    </style>
+}
+
+<div class="container py-4">
+    <h2 class="mb-4">商品查詢</h2>
+
+    <!-- 查詢表單 -->
+    <form method="get" asp-action="Search" class="bg-light rounded-3 shadow-sm p-4 mb-4">
+        <div class="row g-3 align-items-end">
+            <div class="col-md-3">
+                <label for="keyword" class="form-label">關鍵字（書名/作者）</label>
+                <input type="text" class="form-control" id="keyword" name="keyword" value="@Model.Keyword" placeholder="輸入書名或作者">
+            </div>
+            <div class="col-md-2">
+                <label for="categoryId" class="form-label">分類</label>
+                <select class="form-select" id="categoryId" name="categoryId">
+                    <option value="">全部</option>
+                    @foreach(var cat in Model.CategoryList)
+                    {
+                        <!option value="@cat.Id" @(cat.Id == Model.CategoryId ? "selected" : "")>@cat.Name</!option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="priceFrom" class="form-label">價格區間</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" id="priceFrom" name="priceFrom" min="0" placeholder="最低" value="@(Model.PriceFrom.HasValue? Model.PriceFrom.Value.ToString() : "")">
+                    <span class="input-group-text">~</span>
+                    <input type="number" class="form-control" id="priceTo" name="priceTo" min="0" placeholder="最高" value="@(Model.PriceTo.HasValue? Model.PriceTo.Value.ToString() : "")">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label for="sortBy" class="form-label">排序</label>
+                <select class="form-select" id="sortBy" name="sortBy">
+                    <!option value="relevance" @(Model.SortBy == "relevance" ? "selected" : "")>相關度</!option>
+                    <!option value="price_asc" @(Model.SortBy == "price_asc" ? "selected" : "")>價格低→高</!option>
+                    <!option value="price_desc" @(Model.SortBy == "price_desc" ? "selected" : "")>價格高→低</!option>
+                    <!option value="date_desc" @(Model.SortBy == "date_desc" ? "selected" : "")>最新</!option>
+                </select>
+            </div>
+            <div class="col-md-1 d-grid">
+                <button type="submit" class="btn btn-primary">查詢</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- 查詢結果區塊 -->
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mb-5">
+        @if (Model.ProductList != null && Model.ProductList.Any())
+        {
+            foreach (var product in Model.ProductList)
+            {
+                <div class="col">
+                    <a asp-area="" asp-action="Detail" asp-controller="Product" asp-route-id="@product.Id" class="card h-100 shadow-sm product-card text-decoration-none text-dark" style="cursor:pointer;">
+                        @if (product.ImageUrl != null)
+                        {
+                            <img src="@product.ImageUrl" class="card-img-top" style="height:220px;object-fit:contain;">
+                        }
+                        else
+                        {
+                            <div class="bg-light d-flex align-items-center justify-content-center" style="height:220px;">
+                                <span class="text-muted">無圖片</span>
+                            </div>
+                        }
+                        <div class="card-body d-flex flex-column pb-1">
+                            <h5 class="card-title mb-2 text-truncate" title="@product.Title">@product.Title</h5>
+                            <p class="mb-1 small text-secondary">
+                                @if (!string.IsNullOrEmpty(product.Category?.Name))
+                                {
+                                    <span class="badge rounded-pill bg-secondary">@product.Category?.Name</span>
+                                }
+                                @if (!string.IsNullOrEmpty(product.Author?.Name))
+                                {
+                                    <span class="ms-2 text-muted">@product.Author?.Name</span>
+                                }
+                            </p>
+                            <p class="card-text text-truncate small mb-2" title="@product.Description">
+                                @product.Description
+                            </p>
+                            <div class="fw-bold text-danger mb-2 fs-5">
+                                @product.Price.ToString("C0", new CultureInfo("zh-TW"))
+                            </div>
+                        </div>
+                        <div class="card-footer py-2"></div>
+                    </a>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col">
+                <div class="alert alert-info text-center">查無資料</div>
+            </div>
+        }
+    </div>
+
+    <!-- 分頁碼 -->
+    @if (Model.TotalPages > 1)
+    {
+        <div class="d-flex justify-content-end">
+            <nav aria-label="商品分頁">
+                <ul class="pagination pagination-sm justify-content-center">
+                    <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                        <a class="page-link text-dark" asp-route-page="1" asp-route-limit="@Model.PageSize" title="第一頁">&laquo;</a>
+                    </li>
+                    <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                        <a class="page-link text-dark" asp-route-page="@(Model.CurrentPage - 1)" asp-route-limit="@Model.PageSize" title="上一頁">&lsaquo;</a>
+                    </li>
+                    @for (var i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                            <a class="page-link text-dark" asp-route-page="@i" asp-route-limit="@Model.PageSize">@i</a>
+                        </li>
+                    }
+                    <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                        <a class="page-link text-dark" asp-route-page="@(Model.CurrentPage + 1)" asp-route-limit="@Model.PageSize" title="下一頁">&rsaquo;</a>
+                    </li>
+                    <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                        <a class="page-link text-dark" asp-route-page="@Model.TotalPages" asp-route-limit="@Model.PageSize" title="最後一頁">&raquo;</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    }
+

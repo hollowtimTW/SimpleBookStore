@@ -257,35 +257,35 @@ namespace SimpleBookStore.Migrations
                         {
                             Id = 1,
                             Bio = "熱愛文字與城市觀察，擅長描寫人與人之間微妙的情感。",
-                            CreatedAt = new DateTime(2025, 6, 22, 11, 45, 29, 387, DateTimeKind.Utc).AddTicks(8715),
+                            CreatedAt = new DateTime(2025, 7, 5, 0, 49, 31, 860, DateTimeKind.Utc).AddTicks(7032),
                             Name = "林語川"
                         },
                         new
                         {
                             Id = 2,
                             Bio = "歷史科普作家，致力於用輕鬆的語言讓讀者了解複雜歷史事件。",
-                            CreatedAt = new DateTime(2025, 6, 22, 11, 45, 29, 387, DateTimeKind.Utc).AddTicks(8715),
+                            CreatedAt = new DateTime(2025, 7, 5, 0, 49, 31, 860, DateTimeKind.Utc).AddTicks(7032),
                             Name = "張書涵"
                         },
                         new
                         {
                             Id = 3,
                             Bio = "自由旅人與攝影記錄者，筆下風景充滿詩意與溫度。",
-                            CreatedAt = new DateTime(2025, 6, 22, 11, 45, 29, 387, DateTimeKind.Utc).AddTicks(8715),
+                            CreatedAt = new DateTime(2025, 7, 5, 0, 49, 31, 860, DateTimeKind.Utc).AddTicks(7032),
                             Name = "陳彥廷"
                         },
                         new
                         {
                             Id = 4,
                             Bio = "軟體工程師轉職作家，擅長將抽象技術轉化為易懂故事。",
-                            CreatedAt = new DateTime(2025, 6, 22, 11, 45, 29, 387, DateTimeKind.Utc).AddTicks(8715),
+                            CreatedAt = new DateTime(2025, 7, 5, 0, 49, 31, 860, DateTimeKind.Utc).AddTicks(7032),
                             Name = "高雅雯"
                         },
                         new
                         {
                             Id = 5,
                             Bio = "心理學背景出身，專注於內在成長與心靈療癒領域。",
-                            CreatedAt = new DateTime(2025, 6, 22, 11, 45, 29, 387, DateTimeKind.Utc).AddTicks(8715),
+                            CreatedAt = new DateTime(2025, 7, 5, 0, 49, 31, 860, DateTimeKind.Utc).AddTicks(7032),
                             Name = "李思瑜"
                         });
                 });
@@ -320,7 +320,7 @@ namespace SimpleBookStore.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 6, 22, 11, 45, 29, 387, DateTimeKind.Utc).AddTicks(8715),
+                            CreatedAt = new DateTime(2025, 7, 5, 0, 49, 31, 860, DateTimeKind.Utc).AddTicks(7032),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "文學小說"
@@ -328,7 +328,7 @@ namespace SimpleBookStore.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 6, 22, 11, 45, 29, 387, DateTimeKind.Utc).AddTicks(8715),
+                            CreatedAt = new DateTime(2025, 7, 5, 0, 49, 31, 860, DateTimeKind.Utc).AddTicks(7032),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "歷史文化"
@@ -336,7 +336,7 @@ namespace SimpleBookStore.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2025, 6, 22, 11, 45, 29, 387, DateTimeKind.Utc).AddTicks(8715),
+                            CreatedAt = new DateTime(2025, 7, 5, 0, 49, 31, 860, DateTimeKind.Utc).AddTicks(7032),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "旅遊休閒"
@@ -344,7 +344,7 @@ namespace SimpleBookStore.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2025, 6, 22, 11, 45, 29, 387, DateTimeKind.Utc).AddTicks(8715),
+                            CreatedAt = new DateTime(2025, 7, 5, 0, 49, 31, 860, DateTimeKind.Utc).AddTicks(7032),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "電腦資訊"
@@ -352,7 +352,7 @@ namespace SimpleBookStore.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2025, 6, 22, 11, 45, 29, 387, DateTimeKind.Utc).AddTicks(8715),
+                            CreatedAt = new DateTime(2025, 7, 5, 0, 49, 31, 860, DateTimeKind.Utc).AddTicks(7032),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "心理勵志"
@@ -402,10 +402,10 @@ namespace SimpleBookStore.Migrations
                             Code = "WELCOME10",
                             Description = "新會員首購折扣",
                             DiscountAmount = 100,
-                            EndDate = new DateTime(2025, 9, 20, 3, 45, 29, 387, DateTimeKind.Utc).AddTicks(8920),
+                            EndDate = new DateTime(2025, 10, 2, 16, 49, 31, 860, DateTimeKind.Utc).AddTicks(7218),
                             IsActive = true,
                             MinimumSpend = 500,
-                            StartDate = new DateTime(2025, 6, 22, 3, 45, 29, 387, DateTimeKind.Utc).AddTicks(8919)
+                            StartDate = new DateTime(2025, 7, 4, 16, 49, 31, 860, DateTimeKind.Utc).AddTicks(7217)
                         },
                         new
                         {
@@ -413,10 +413,10 @@ namespace SimpleBookStore.Migrations
                             Code = "SUMMER20",
                             Description = "夏季特賣全館折扣",
                             DiscountAmount = 200,
-                            EndDate = new DateTime(2025, 9, 20, 3, 45, 29, 387, DateTimeKind.Utc).AddTicks(8924),
+                            EndDate = new DateTime(2025, 10, 2, 16, 49, 31, 860, DateTimeKind.Utc).AddTicks(7221),
                             IsActive = true,
                             MinimumSpend = 1000,
-                            StartDate = new DateTime(2025, 6, 22, 3, 45, 29, 387, DateTimeKind.Utc).AddTicks(8923)
+                            StartDate = new DateTime(2025, 7, 4, 16, 49, 31, 860, DateTimeKind.Utc).AddTicks(7221)
                         },
                         new
                         {
@@ -424,10 +424,10 @@ namespace SimpleBookStore.Migrations
                             Code = "FREESHIP",
                             Description = "免運優惠券",
                             DiscountAmount = 60,
-                            EndDate = new DateTime(2025, 9, 20, 3, 45, 29, 387, DateTimeKind.Utc).AddTicks(8926),
+                            EndDate = new DateTime(2025, 10, 2, 16, 49, 31, 860, DateTimeKind.Utc).AddTicks(7224),
                             IsActive = true,
                             MinimumSpend = 0,
-                            StartDate = new DateTime(2025, 6, 22, 3, 45, 29, 387, DateTimeKind.Utc).AddTicks(8926)
+                            StartDate = new DateTime(2025, 7, 4, 16, 49, 31, 860, DateTimeKind.Utc).AddTicks(7223)
                         },
                         new
                         {
@@ -435,10 +435,10 @@ namespace SimpleBookStore.Migrations
                             Code = "VIP50",
                             Description = "VIP會員專屬優惠",
                             DiscountAmount = 500,
-                            EndDate = new DateTime(2025, 9, 20, 3, 45, 29, 387, DateTimeKind.Utc).AddTicks(8928),
+                            EndDate = new DateTime(2025, 10, 2, 16, 49, 31, 860, DateTimeKind.Utc).AddTicks(7226),
                             IsActive = true,
                             MinimumSpend = 2500,
-                            StartDate = new DateTime(2025, 6, 22, 3, 45, 29, 387, DateTimeKind.Utc).AddTicks(8928)
+                            StartDate = new DateTime(2025, 7, 4, 16, 49, 31, 860, DateTimeKind.Utc).AddTicks(7226)
                         },
                         new
                         {
@@ -446,10 +446,10 @@ namespace SimpleBookStore.Migrations
                             Code = "BIRTHDAY30",
                             Description = "生日禮遇折扣券",
                             DiscountAmount = 300,
-                            EndDate = new DateTime(2025, 9, 20, 3, 45, 29, 387, DateTimeKind.Utc).AddTicks(8931),
+                            EndDate = new DateTime(2025, 10, 2, 16, 49, 31, 860, DateTimeKind.Utc).AddTicks(7229),
                             IsActive = true,
                             MinimumSpend = 1500,
-                            StartDate = new DateTime(2025, 6, 22, 3, 45, 29, 387, DateTimeKind.Utc).AddTicks(8930)
+                            StartDate = new DateTime(2025, 7, 4, 16, 49, 31, 860, DateTimeKind.Utc).AddTicks(7228)
                         });
                 });
 
@@ -485,13 +485,13 @@ namespace SimpleBookStore.Migrations
                     b.ToTable("EmailVerificationCodes");
                 });
 
-            modelBuilder.Entity("SimpleBookStore.Models.OrderDetail", b =>
+            modelBuilder.Entity("SimpleBookStore.Models.OrderDetails", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("OrderDetailsId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("OrderDetailsId"));
 
                     b.Property<int>("Count")
                         .HasColumnType("int");
@@ -499,108 +499,65 @@ namespace SimpleBookStore.Migrations
                     b.Property<int>("OrderHeaderId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(10,2)");
+                    b.Property<double>("Price")
+                        .HasColumnType("double");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("OrderDetailsId");
 
                     b.HasIndex("OrderHeaderId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("SimpleBookStore.Models.OrderHeader", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("OrderHeaderId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("OrderHeaderId"));
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("Carrier")
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("OrderStatus")
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<decimal>("OrderTotal")
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<DateTime?>("PaymentDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime?>("PaymentDueDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("PaymentIntentId")
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("PaymentStatus")
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
-
-                    b.Property<string>("PostalCode")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
-
-                    b.Property<string>("SessionId")
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<DateTime?>("ShippingDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("StreetAddress")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
-
-                    b.Property<string>("TrackingNumber")
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
+                    b.Property<string>("Address")
                         .HasColumnType("longtext");
 
-                    b.HasKey("Id");
+                    b.Property<string>("CouponCode")
+                        .HasColumnType("longtext");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.Property<int>("Discount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("OrderTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("OrderTotal")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PaymentIntentId")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("StripeSessionId")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("OrderHeaderId");
 
                     b.ToTable("OrderHeaders");
                 });
@@ -626,14 +583,17 @@ namespace SimpleBookStore.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("varchar(1000)");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("longtext");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("PublishedDate")
                         .HasColumnType("datetime(6)");
@@ -663,105 +623,76 @@ namespace SimpleBookStore.Migrations
                             Id = 1,
                             AuthorId = 1,
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2025, 6, 22, 11, 45, 29, 387, DateTimeKind.Utc).AddTicks(8715),
+                            CreatedAt = new DateTime(2025, 7, 5, 0, 49, 31, 860, DateTimeKind.Utc).AddTicks(7032),
                             Description = "當思想成為力量，城市也會呼吸。",
                             IsActive = true,
                             IsDeleted = false,
-                            Price = 420m,
+                            Price = 420,
                             PublishedDate = new DateTime(2023, 2, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Publisher = "幻語出版",
                             Title = "靈光之城：The Rise of Mindlight",
-                            UpdatedAt = new DateTime(2025, 6, 22, 11, 45, 29, 387, DateTimeKind.Utc).AddTicks(8715)
+                            UpdatedAt = new DateTime(2025, 7, 5, 0, 49, 31, 860, DateTimeKind.Utc).AddTicks(7032)
                         },
                         new
                         {
                             Id = 2,
                             AuthorId = 2,
                             CategoryId = 2,
-                            CreatedAt = new DateTime(2025, 6, 22, 11, 45, 29, 387, DateTimeKind.Utc).AddTicks(8715),
+                            CreatedAt = new DateTime(2025, 7, 5, 0, 51, 31, 860, DateTimeKind.Utc).AddTicks(7032),
                             Description = "一部顛覆歷史視角的時空探險小說。",
                             IsActive = true,
                             IsDeleted = false,
-                            Price = 499m,
+                            Price = 499,
                             PublishedDate = new DateTime(2022, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Publisher = "時代盒子文化",
                             Title = "時砂紀元：Chrono Sands",
-                            UpdatedAt = new DateTime(2025, 6, 22, 11, 45, 29, 387, DateTimeKind.Utc).AddTicks(8715)
+                            UpdatedAt = new DateTime(2025, 7, 5, 0, 51, 31, 860, DateTimeKind.Utc).AddTicks(7032)
                         },
                         new
                         {
                             Id = 3,
                             AuthorId = 3,
                             CategoryId = 3,
-                            CreatedAt = new DateTime(2025, 6, 22, 11, 45, 29, 387, DateTimeKind.Utc).AddTicks(8715),
+                            CreatedAt = new DateTime(2025, 7, 5, 0, 52, 31, 860, DateTimeKind.Utc).AddTicks(7032),
                             Description = "探索日常的陌生角落，走出你的Walkscape。",
                             IsActive = true,
                             IsDeleted = false,
-                            Price = 310m,
+                            Price = 310,
                             PublishedDate = new DateTime(2021, 11, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Publisher = "步路生活",
                             Title = "Walkscape：城市微旅行指南",
-                            UpdatedAt = new DateTime(2025, 6, 22, 11, 45, 29, 387, DateTimeKind.Utc).AddTicks(8715)
+                            UpdatedAt = new DateTime(2025, 7, 5, 0, 52, 31, 860, DateTimeKind.Utc).AddTicks(7032)
                         },
                         new
                         {
                             Id = 4,
                             AuthorId = 1,
                             CategoryId = 4,
-                            CreatedAt = new DateTime(2025, 6, 22, 11, 45, 29, 387, DateTimeKind.Utc).AddTicks(8715),
+                            CreatedAt = new DateTime(2025, 7, 5, 0, 53, 31, 860, DateTimeKind.Utc).AddTicks(7032),
                             Description = "結合語言學與人工智慧的程式思維演進之路。",
                             IsActive = true,
                             IsDeleted = false,
-                            Price = 650m,
+                            Price = 650,
                             PublishedDate = new DateTime(2024, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Publisher = "幻碼實驗室",
                             Title = "Code Alchemy：寫給未來的程式語言",
-                            UpdatedAt = new DateTime(2025, 6, 22, 11, 45, 29, 387, DateTimeKind.Utc).AddTicks(8715)
+                            UpdatedAt = new DateTime(2025, 7, 5, 0, 53, 31, 860, DateTimeKind.Utc).AddTicks(7032)
                         },
                         new
                         {
                             Id = 5,
                             AuthorId = 2,
                             CategoryId = 5,
-                            CreatedAt = new DateTime(2025, 6, 22, 11, 45, 29, 387, DateTimeKind.Utc).AddTicks(8715),
+                            CreatedAt = new DateTime(2025, 7, 5, 0, 54, 31, 860, DateTimeKind.Utc).AddTicks(7032),
                             Description = "給被生活困住的你，一場重啟心靈的旅程。",
                             IsActive = true,
                             IsDeleted = false,
-                            Price = 370m,
+                            Price = 370,
                             PublishedDate = new DateTime(2020, 5, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Publisher = "心靈迴響",
                             Title = "Reset Me：重新啟動的勇氣",
-                            UpdatedAt = new DateTime(2025, 6, 22, 11, 45, 29, 387, DateTimeKind.Utc).AddTicks(8715)
+                            UpdatedAt = new DateTime(2025, 7, 5, 0, 54, 31, 860, DateTimeKind.Utc).AddTicks(7032)
                         });
-                });
-
-            modelBuilder.Entity("SimpleBookStore.Models.ProductImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("varchar(300)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SortOrder")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductImages");
                 });
 
             modelBuilder.Entity("SimpleBookStore.Models.ShoppingCart", b =>
@@ -781,8 +712,8 @@ namespace SimpleBookStore.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("UnitPrice")
-                        .HasColumnType("decimal(65,30)");
+                    b.Property<int>("UnitPrice")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -859,7 +790,7 @@ namespace SimpleBookStore.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SimpleBookStore.Models.OrderDetail", b =>
+            modelBuilder.Entity("SimpleBookStore.Models.OrderDetails", b =>
                 {
                     b.HasOne("SimpleBookStore.Models.OrderHeader", "OrderHeader")
                         .WithMany("OrderDetails")
@@ -867,24 +798,7 @@ namespace SimpleBookStore.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SimpleBookStore.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("OrderHeader");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("SimpleBookStore.Models.OrderHeader", b =>
-                {
-                    b.HasOne("SimpleBookStore.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SimpleBookStore.Models.Product", b =>
@@ -904,17 +818,6 @@ namespace SimpleBookStore.Migrations
                     b.Navigation("Author");
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("SimpleBookStore.Models.ProductImage", b =>
-                {
-                    b.HasOne("SimpleBookStore.Models.Product", "Product")
-                        .WithMany("ProductImages")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("SimpleBookStore.Models.ShoppingCart", b =>
@@ -947,11 +850,6 @@ namespace SimpleBookStore.Migrations
             modelBuilder.Entity("SimpleBookStore.Models.OrderHeader", b =>
                 {
                     b.Navigation("OrderDetails");
-                });
-
-            modelBuilder.Entity("SimpleBookStore.Models.Product", b =>
-                {
-                    b.Navigation("ProductImages");
                 });
 #pragma warning restore 612, 618
         }

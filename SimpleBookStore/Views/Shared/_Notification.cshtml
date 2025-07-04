@@ -1,13 +1,11 @@
 ﻿@if (TempData["Success"] != null)
 {
-    <script src="~/lib/toastr.js/toastr.min.js"></script>
     <script>
         toastr.success('@Html.Raw(TempData["Success"])');
     </script>
 }
 @if (TempData["Error"] != null)
 {
-    <script src="~/lib/toastr.js/toastr.min.js"></script>
     <script>
         toastr.error('@Html.Raw(TempData["Error"])');
     </script>

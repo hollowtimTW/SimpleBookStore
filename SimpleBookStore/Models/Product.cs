@@ -16,10 +16,10 @@ namespace SimpleBookStore.Models
         public string? Publisher { get; set; }
         public DateTime? PublishedDate { get; set; }
         [Required]
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal Price { get; set; }
+        public int Price { get; set; }
         [MaxLength(1000)]
         public string? Description { get; set; }
+        public string? ImageUrl { get; set; }
         public bool IsActive { get; set; } = true;
         public bool IsDeleted { get; set; } = false;
         public DateTime CreatedAt { get; set; }
@@ -33,7 +33,5 @@ namespace SimpleBookStore.Models
         [ValidateNever]
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
-        [ValidateNever]
-        public ICollection<ProductImage> ProductImages { get; set; }
     }
 }

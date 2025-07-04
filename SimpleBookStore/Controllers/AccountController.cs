@@ -2,11 +2,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
-using SimpleBookStore.Migrations;
 using SimpleBookStore.Models;
+using SimpleBookStore.Models.ViewModels;
 using SimpleBookStore.Service.IService;
 using SimpleBookStore.Utility;
-using SimpleBookStore.ViewModels;
 
 namespace SimpleBookStore.Controllers
 {
@@ -251,13 +250,7 @@ namespace SimpleBookStore.Controllers
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user != null)
                 {
-                    var passwordCheck = await _userManager.CheckPasswordAsync(user, model.Password);
-                    if (!passwordCheck)
-                    {
-                        ModelState.AddModelError(string.Empty, "Email 或密碼錯誤。");
-                        return View(model);
-                    }
-
+                    // 檢查 Email 是否已驗證
                     if (!await _userManager.IsEmailConfirmedAsync(user))
                     {
                         // 檢查冷卻時間
@@ -269,11 +262,11 @@ namespace SimpleBookStore.Controllers
                             await _emailService.SendEmailAsync(user.Email!,
                                 "Email 驗證碼",
                                 $@"
-                            <h3>請驗證您的 Email</h3>
-                            <p>您需要先驗證 Email 才能登入。您的驗證碼是：</p>
-                            <h2 style='color: #007bff; font-family: monospace;'>{code}</h2>
-                            <p>此驗證碼將在 10 分鐘後過期。</p>
-                            ");
+                        <h3>請驗證您的 Email</h3>
+                        <p>您需要先驗證 Email 才能登入。您的驗證碼是：</p>
+                        <h2 style='color: #007bff; font-family: monospace;'>{code}</h2>
+                        <p>此驗證碼將在 10 分鐘後過期。</p>
+                        ");
 
                             _cache.Set(cooldownKey, DateTime.UtcNow, TimeSpan.FromSeconds(60));
                             TempData["Message"] = "請先驗證您的 Email。我們已重新發送驗證碼到您的信箱。";
@@ -286,8 +279,11 @@ namespace SimpleBookStore.Controllers
                         return RedirectToAction("VerifyEmail", new { userId = user.Id, email = user.Email });
                     }
 
-                    var result = await _signInManager.PasswordSignInAsync(user.UserName!,
-                        model.Password, model.RememberMe, lockoutOnFailure: true);
+                    var result = await _signInManager.PasswordSignInAsync(
+                        user.UserName!,
+                        model.Password,
+                        model.RememberMe,
+                        lockoutOnFailure: true);
 
                     if (result.Succeeded)
                     {
@@ -297,9 +293,19 @@ namespace SimpleBookStore.Controllers
                     {
                         ModelState.AddModelError(string.Empty, "帳戶已被鎖定，請稍後再試。");
                     }
+                    else if (result.IsNotAllowed)
+                    {
+                        ModelState.AddModelError(string.Empty, "您的帳戶尚未允許登入。");
+                    }
                     else
                     {
-                        ModelState.AddModelError(string.Empty, "登入失敗，請稍後再試。");
+                        var failedCount = await _userManager.GetAccessFailedCountAsync(user);
+                        var maxAttempts = 5; // 設定最大次數
+                        var remaining = maxAttempts - failedCount;
+                        if (remaining > 0)
+                        {
+                            ModelState.AddModelError(string.Empty, $"Email 或密碼錯誤。再錯誤 {remaining} 次帳戶將被鎖定。");
+                        }
                     }
                 }
                 else

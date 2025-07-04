@@ -21,6 +21,13 @@ namespace SimpleBookStore.Service
                 .ToListAsync();
         }
 
+        public async Task<Category?> GetAsync(int id)
+        {
+            return await _db.Categories
+                .Where(p => !p.IsDeleted && p.Id == id)
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<IEnumerable<Category>> GetActiveCategories()
         {
             return await _db.Categories

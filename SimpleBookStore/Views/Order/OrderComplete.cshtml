@@ -1,0 +1,31 @@
+﻿@model OrderHeader
+
+@{
+    ViewData["Title"] = "訂單完成";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <div class="alert alert-success" role="alert">
+                <h2 class="mb-3"><i class="bi bi-check-circle-fill text-success"></i> 付款成功！</h2>
+                <p class="lead">感謝您的購買，您的訂單已經成功完成。</p>
+            </div>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h4 class="card-title mb-3">訂單資訊</h4>
+                    <div class="text-start px-3">
+                        <p><strong>訂單編號：</strong> @Model.OrderHeaderId</p>
+                        <p><strong>訂購人：</strong> @Model.Name</p>
+                        <p><strong>電話：</strong> @Model.Phone</p>
+                        <p><strong>地址：</strong> @Model.Address</p>
+                        <p><strong>訂單金額：</strong> @Model.OrderTotal.ToString("C0", new System.Globalization.CultureInfo("zh-TW"))</p>
+                        <p><strong>訂單時間：</strong> @Model.OrderTime.ToString("yyyy-MM-dd HH:mm")</p>
+                    </div>
+                </div>
+            </div>
+            <a class="btn btn-primary" href="/">回首頁</a>
+            <a class="btn btn-outline-secondary ms-2" href="/Order/Detail?orderId=@Model.OrderHeaderId">查看訂單明細</a>
+        </div>
+    </div>
+</div>

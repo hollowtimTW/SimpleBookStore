@@ -1,0 +1,108 @@
+﻿@model CheckoutVM
+
+@{
+    ViewData["Title"] = "確認訂單";
+}
+
+<div class="container my-5">
+    <h2 class="mb-4"><i class="bi bi-clipboard-check"></i> 確認訂單</h2>
+    <div class="row">
+        <!-- 左側：購物車明細 -->
+        <div class="col-lg-7 mb-4">
+            <h4>購物車明細</h4>
+            <div class="table-responsive">
+                <table class="table align-middle table-bordered bg-white shadow-sm mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>商品</th>
+                            <th>單價</th>
+                            <th>數量</th>
+                            <th>小計</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.CartItems)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="@item.Product?.ImageUrl"
+                                             class="me-3 rounded"
+                                             style="width:60px;height:60px;object-fit:contain;">
+                                        <div>
+                                            <div class="fw-bold">@item.Product?.Title</div>
+                                            <div class="text-muted small">@item.Product?.Author?.Name</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>@item.UnitPrice.ToString("C0", new CultureInfo("zh-TW"))</td>
+                                <td>@item.Quantity</td>
+                                <td>@((item.UnitPrice * item.Quantity).ToString("C0", new CultureInfo("zh-TW")))</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="row align-items-center mt-3">
+                <div class="col-md-6 mb-2 mb-md-0">
+                    @if (Model.CouponResult != null)
+                    {
+                        <div class="alert alert-success py-1 px-2 mb-2 d-inline-block">
+                            已套用優惠券：<b>@Model.CouponResult.CouponCode</b>
+                            ，折抵 <b>@Model.CouponResult.DiscountAmount.ToString("C0", new System.Globalization.CultureInfo("zh-TW"))</b>
+                        </div>
+                    }
+                </div>
+                <div class="col-md-6 d-flex flex-column align-items-end">
+                    <span class="fs-5 fw-bold mb-3">
+                        總計：
+                        @if (Model.CouponResult != null)
+                        {
+                            <span class="text-muted text-decoration-line-through me-2">
+                                @Model.Total.ToString("C0", new System.Globalization.CultureInfo("zh-TW"))
+                            </span>
+                            <span class="text-danger">
+                                @((Model.Total - Model.CouponResult.DiscountAmount).ToString("C0", new System.Globalization.CultureInfo("zh-TW")))
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="text-danger">
+                                @Model.Total.ToString("C0", new System.Globalization.CultureInfo("zh-TW"))
+                            </span>
+                        }
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- 右側：收件人資訊 -->
+        <div class="col-lg-5 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="mb-4">收件人資訊</h4>
+                    <form asp-action="Checkout" asp-controller="Order" method="post" class="row g-3">
+                        <div class="col-12">
+                            <label asp-for="Recipient.Name" class="form-label"></label>
+                            <input asp-for="Recipient.Name" class="form-control" />
+                            <span asp-validation-for="Recipient.Name" class="text-danger"></span>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="Recipient.PhoneNumber" class="form-label"></label>
+                            <input asp-for="Recipient.PhoneNumber" class="form-control" />
+                            <span asp-validation-for="Recipient.PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="Recipient.Address" class="form-label"></label>
+                            <input asp-for="Recipient.Address" class="form-control" />
+                            <span asp-validation-for="Recipient.Address" class="text-danger"></span>
+                        </div>
+                        <div class="col-12 d-flex justify-content-end">
+                            <a asp-action="Index" asp-controller="Cart" class="btn btn-outline-secondary me-3">返回購物車</a>
+                            <button type="submit" class="btn btn-primary btn-lg px-5">送出訂單</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

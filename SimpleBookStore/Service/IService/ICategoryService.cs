@@ -6,6 +6,7 @@ namespace SimpleBookStore.Service.IService
     public interface ICategoryService
     {
         Task<IEnumerable<Category>> GetAllAsync();
+        Task<Category?> GetAsync(int id);
         Task<IEnumerable<Category>> GetActiveCategories();
         Task ToggleActiveAsync(int id, bool isActive);
         Task CreateAsync(Category category);

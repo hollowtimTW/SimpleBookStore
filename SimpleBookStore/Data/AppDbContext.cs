@@ -17,10 +17,9 @@ namespace SimpleBookStore.Data
         public DbSet<Author> Authors { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Coupon> Coupons { get; set; }
-        public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public DbSet<OrderHeader> OrderHeaders { get; set; }
-        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<OrderDetails> OrderDetails { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -139,8 +138,8 @@ namespace SimpleBookStore.Data
                     Description = "一部顛覆歷史視角的時空探險小說。",
                     IsActive = true,
                     IsDeleted = false,
-                    CreatedAt = now,
-                    UpdatedAt = now
+                    CreatedAt = now.AddMinutes(2),
+                    UpdatedAt = now.AddMinutes(2)
                 },
                 new Product
                 {
@@ -154,8 +153,8 @@ namespace SimpleBookStore.Data
                     Description = "探索日常的陌生角落，走出你的Walkscape。",
                     IsActive = true,
                     IsDeleted = false,
-                    CreatedAt = now,
-                    UpdatedAt = now
+                    CreatedAt = now.AddMinutes(3),
+                    UpdatedAt = now.AddMinutes(3)
                 },
                 new Product
                 {
@@ -169,8 +168,8 @@ namespace SimpleBookStore.Data
                     Description = "結合語言學與人工智慧的程式思維演進之路。",
                     IsActive = true,
                     IsDeleted = false,
-                    CreatedAt = now,
-                    UpdatedAt = now
+                    CreatedAt = now.AddMinutes(4),
+                    UpdatedAt = now.AddMinutes(4)
                 },
                 new Product
                 {
@@ -184,8 +183,8 @@ namespace SimpleBookStore.Data
                     Description = "給被生活困住的你，一場重啟心靈的旅程。",
                     IsActive = true,
                     IsDeleted = false,
-                    CreatedAt = now,
-                    UpdatedAt = now
+                    CreatedAt = now.AddMinutes(5),
+                    UpdatedAt = now.AddMinutes(5)
                 }
             );
 
