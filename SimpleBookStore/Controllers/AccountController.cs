@@ -289,6 +289,11 @@ namespace SimpleBookStore.Controllers
 
                     if (result.Succeeded)
                     {
+                        if (returnUrl != null && returnUrl.Contains("Cart"))
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+
                         return RedirectToLocal(returnUrl);
                     }
                     else if (result.IsLockedOut)
