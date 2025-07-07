@@ -40,6 +40,19 @@ namespace SimpleBookStore.Areas.Admin.Controllers
             {
                 await _couponService.CreateAsync(coupon);
 
+                // 先檢查 Stripe 中是否已存在相同的優惠券代碼
+                var stripeService = new Stripe.CouponService();
+                try
+                {
+                    var existingCoupon = await stripeService.GetAsync(coupon.Code);
+                    if (existingCoupon != null)
+                    {
+                        await stripeService.DeleteAsync(coupon.Code);
+                    }
+                }
+                catch 
+                {
+                }
                 var options = new Stripe.CouponCreateOptions
                 {
                     AmountOff = (long)(coupon.DiscountAmount * 100),
@@ -48,9 +61,7 @@ namespace SimpleBookStore.Areas.Admin.Controllers
                     Id = coupon.Code,
                 };
 
-                var service = new Stripe.CouponService();
-                service.Create(options);
-
+                stripeService.Create(options);
                 TempData["Success"] = "操作成功！";
             }
             catch

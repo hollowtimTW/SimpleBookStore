@@ -189,6 +189,10 @@ namespace SimpleBookStore.Data
                 }
             );
 
+            modelBuilder.Entity<Coupon>()
+                .HasIndex(c => c.Code)
+                .IsUnique();
+
             modelBuilder.Entity<Coupon>().HasData(
                 new Coupon
                 {

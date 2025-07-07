@@ -38,6 +38,14 @@ namespace SimpleBookStore.Service
 
         public async Task CreateAsync(Coupon coupon)
         {
+            //避免重複
+            var existingCoupon = await _db.Coupons
+                .FirstOrDefaultAsync(c => c.Code == coupon.Code);
+            if (existingCoupon != null)
+            {
+                throw new Exception("名稱重複");
+            }
+
             _db.Coupons.Add(coupon);
             await _db.SaveChangesAsync();
         }
