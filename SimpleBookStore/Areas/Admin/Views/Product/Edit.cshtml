@@ -37,7 +37,9 @@
 }
 
 <div class="container mt-4">
-    <h2>修改產品</h2>
+    <h2 class="mb-4 text-primary fw-bold text-center border-bottom pb-2 bg-light bg-opacity-75 rounded shadow-sm animate__animated animate__fadeInDown">
+        @ViewData["Title"]
+    </h2>
     <form asp-area="Admin" asp-action="Edit" asp-controller="Product" method="post" enctype="multipart/form-data">
         <input type="hidden" asp-for="Product.Id" />
         <div class="mb-3">

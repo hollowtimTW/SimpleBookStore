@@ -44,7 +44,9 @@
     </div>
 
     <!-- 作品區 -->
-    <h5 class="mb-3">著作列表</h5>
+    <h5 class="mb-4 text-dark fw-bold text-center border-bottom pb-2 bg-light bg-opacity-75 rounded shadow-sm animate__animated animate__fadeInDown">
+        著作列表
+    </h5>
     @if (Model.Products != null && Model.Products.Any())
     {
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
@@ -55,7 +57,7 @@
                        class="card h-100 shadow-sm text-decoration-none text-dark product-card">
                         @if (item.ImageUrl != null)
                         {
-                            <img src="@item.ImageUrl" class="card-img-top" alt="@item.Title" style="height:180px;object-fit:cover;">
+                            <img src="@item.ImageUrl" class="card-img-top" alt="@item.Title" style="height:180px;object-fit:contain;">
                         }
                         else
                         {

@@ -19,6 +19,9 @@ namespace SimpleBookStore.Service
 
         public async Task SendEmailAsync(string toEmail, string subject, string body)
         {
+            if (string.IsNullOrEmpty(toEmail) || toEmail.Contains("@12345.com"))
+                return;
+
             _httpClient.DefaultRequestHeaders.Clear();
             _httpClient.DefaultRequestHeaders.Add("api-key", _apiKey);
 

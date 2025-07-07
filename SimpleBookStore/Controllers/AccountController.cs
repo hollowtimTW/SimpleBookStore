@@ -6,6 +6,7 @@ using SimpleBookStore.Models;
 using SimpleBookStore.Models.ViewModels;
 using SimpleBookStore.Service.IService;
 using SimpleBookStore.Utility;
+using SimpleBookStore.Utility.Helper;
 
 namespace SimpleBookStore.Controllers
 {
@@ -53,7 +54,8 @@ namespace SimpleBookStore.Controllers
                     Email = model.Email,
                     FullName = model.FullName,
                     Address = model.Address,
-                    PhoneNumber = model.PhoneNumber
+                    PhoneNumber = model.PhoneNumber,
+                    CreatedAt = TimeHelper.Now(),
                 };
 
                 await EnsureRolesExistAsync();
@@ -481,6 +483,48 @@ namespace SimpleBookStore.Controllers
                     await _roleManager.CreateAsync(new IdentityRole(role));
                 }
             }
+        }
+
+        public async Task<IActionResult> Profile()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Profile(ApplicationUser model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            user.FullName = model.FullName;
+            user.Address = model.Address;
+            user.PhoneNumber = model.PhoneNumber;
+
+            var result = await _userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                TempData["Success"] = "個人資料已更新";
+            }
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+            return View(user);
         }
     }
 }

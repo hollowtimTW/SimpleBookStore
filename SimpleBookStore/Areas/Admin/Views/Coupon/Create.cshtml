@@ -4,8 +4,10 @@
     ViewData["Title"] = "新增優惠券";
 }
 
-<div class="container mt-5">
-    <h2 class="mb-4 text-center">新增優惠券</h2>
+<div class="container mt-4">
+    <h2 class="mb-4 text-primary fw-bold text-center border-bottom pb-2 bg-light bg-opacity-75 rounded shadow-sm animate__animated animate__fadeInDown">
+        @ViewData["Title"]
+    </h2>
     <form asp-area="Admin" asp-action="Create" method="post" id="createCouponForm">
         <div class="row justify-content-center">
             <div class="col-md-7 col-lg-6">

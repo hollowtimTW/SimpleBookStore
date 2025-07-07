@@ -1,3 +1,111 @@
-﻿@{
+﻿@model IEnumerable<OrderHeader>
+
+@{
     ViewData["Title"] = "訂單列表";
+    var statusList = new List<string>{
+        SD.Status_Pending,
+        SD.Status_Paid,
+        SD.Status_Processing,
+        SD.Status_Shipped,
+        SD.Status_Delivered,
+        SD.Status_Completed,
+        SD.Status_Cancelled
+    };
+}
+
+@section Styles {
+    <link href="~/lib/datatables/css/jquery.datatables.min.css" rel="stylesheet" />
+    <style>
+        /* 隱藏 DataTables 預設搜尋框 */
+        #ordersTable_filter {
+            display: none;
+        }
+    </style>
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-primary fw-bold text-center border-bottom pb-2 bg-light bg-opacity-75 rounded shadow-sm animate__animated animate__fadeInDown">
+        @ViewData["Title"]
+    </h2>
+    <div class="row my-3 ">
+        <div class="col-12 d-flex flex-wrap justify-content-end gap-2">
+            <div class="btn-group" role="group" aria-label="Status Filter">
+                <button type="button" class="btn btn-outline-primary active" data-status="">全部</button>
+                @foreach (var status in statusList)
+                {
+                    <button type="button" class="btn btn-outline-primary" data-status="@status">@status</button>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-12 col-md-4 ms-auto">
+            <div class="input-group">
+                <span class="input-group-text fw-bold" id="orderIdSearchLabel">訂單編號搜尋</span>
+                <input type="text" id="orderIdSearch" class="form-control" placeholder="輸入訂單編號" aria-label="搜尋訂單編號" aria-describedby="orderIdSearchLabel">
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table id="ordersTable" class="table table-bordered table-hover align-middle text-center">
+            <thead class="table-light">
+                <tr>
+                    <th>訂單編號</th>
+                    <th>會員編號</th>
+                    <th>訂單日期</th>
+                    <th>總計</th>
+                    <th>訂單狀態</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">尚無訂單</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var order in Model)
+                    {
+                        <tr>
+                            <td>@order.OrderHeaderId</td>
+                            <td>@order.UserId</td>
+                            <td>@order.OrderTime.ToString("yyyy-MM-dd")</td>
+                            <td>@order.OrderTotal.ToString("C0", new CultureInfo("zh-TW"))</td>
+                            <td>@order.Status</td>
+                            <td>
+                                <a asp-action="Detail" asp-controller="Order" asp-route-orderId="@order.OrderHeaderId" class="btn btn-primary">訂單詳情</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/datatables/js/jquery.datatables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var table = $('#ordersTable').DataTable({
+                language: {
+                    "url": "//cdn.datatables.net/plug-ins/2.3.2/i18n/zh-HANT.json"
+                }
+            });
+
+            $('.btn-group [data-status]').on('click', function () {
+                $('.btn-group [data-status]').removeClass('active');
+                $(this).addClass('active');
+                var val = $(this).data('status');
+                table.column(4).search(val ? '^' + val + '$' : '', true, false).draw();
+            });
+
+            $('#orderIdSearch').on('keyup change', function () {
+                table.column(0).search(this.value).draw();
+            });
+        });
+    </script>
 }

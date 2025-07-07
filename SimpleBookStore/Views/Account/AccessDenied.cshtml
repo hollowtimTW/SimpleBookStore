@@ -1,1 +1,24 @@
-<h1>Access Denied</h1>
+@{
+    ViewData["Title"] = "權限不足";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 text-center">
+            <div class="card border-danger shadow">
+                <div class="card-body">
+                    <h1 class="display-4 text-danger mb-4">
+                        <i class="bi bi-shield-lock-fill"></i> 權限不足
+                    </h1>
+                    <p class="lead mb-4">
+                        很抱歉，您沒有存取此頁面的權限。<br />
+                        若您認為這是錯誤，請聯絡網站管理員。
+                    </p>
+                    <a asp-action="Index" asp-controller="Home" class="btn btn-primary btn-lg">
+                        返回首頁
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SimpleBookStore.Models;
+using SimpleBookStore.Utility.Helper;
 
 namespace SimpleBookStore.Data
 {
@@ -27,7 +28,7 @@ namespace SimpleBookStore.Data
             base.OnModelCreating(modelBuilder);
 
 
-            var now = DateTime.UtcNow.AddHours(8);
+            var now = TimeHelper.Now();
 
             modelBuilder.Entity<Category>().HasData(
                 new Category

@@ -8,16 +8,16 @@
     <h2 class="mb-4"><i class="bi bi-clipboard-check"></i> 確認訂單</h2>
     <div class="row">
         <!-- 左側：購物車明細 -->
-        <div class="col-lg-7 mb-4">
+        <div class="col-lg-8 mb-4">
             <h4>購物車明細</h4>
             <div class="table-responsive">
                 <table class="table align-middle table-bordered bg-white shadow-sm mb-0">
                     <thead class="table-light">
                         <tr>
-                            <th>商品</th>
-                            <th>單價</th>
-                            <th>數量</th>
-                            <th>小計</th>
+                            <th class="text-center">商品</th>
+                            <th class="text-center">單價</th>
+                            <th class="text-center">數量</th>
+                            <th class="text-center">小計</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,9 +35,9 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>@item.UnitPrice.ToString("C0", new CultureInfo("zh-TW"))</td>
-                                <td>@item.Quantity</td>
-                                <td>@((item.UnitPrice * item.Quantity).ToString("C0", new CultureInfo("zh-TW")))</td>
+                                <td class="text-center">@item.UnitPrice.ToString("C0", new CultureInfo("zh-TW"))</td>
+                                <td class="text-center">@item.Quantity</td>
+                                <td class="text-center">@((item.UnitPrice * item.Quantity).ToString("C0", new CultureInfo("zh-TW")))</td>
                             </tr>
                         }
                     </tbody>
@@ -76,7 +76,7 @@
             </div>
         </div>
         <!-- 右側：收件人資訊 -->
-        <div class="col-lg-5 mb-4">
+        <div class="col-lg-4 mb-4">
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h4 class="mb-4">收件人資訊</h4>

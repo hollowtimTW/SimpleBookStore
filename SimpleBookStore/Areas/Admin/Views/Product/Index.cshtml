@@ -42,7 +42,9 @@
 }
 
 <div class="container mt-4">
-    <h2>產品列表</h2>
+    <h2 class="mb-4 text-primary fw-bold text-center border-bottom pb-2 bg-light bg-opacity-75 rounded shadow-sm animate__animated animate__fadeInDown">
+        @ViewData["Title"]
+    </h2>
     <div class="top-bar-row">
         <a class="btn btn-primary"
            asp-action="Create"
@@ -145,7 +147,6 @@
     <script src="~/lib/sweetalert2/sweetalert2.all.min.js"></script>
     <script>
         $(function () {
-            // DataTable 初始化，部份欄位停用排序，移除全域搜尋
             var table = $('#product-table').DataTable({
                 dom: 'lrtip', // 隱藏全局搜尋列
                 order: [], // 無預設排序
@@ -153,19 +154,10 @@
                 fixedHeader: true,
                 lengthMenu: [10, 25, 50, 100],
                 columnDefs: [
-                    { orderable: false, targets: [0, 1, 2, 3] } // 書名、分類、作者、出版社不可排序
+                    { orderable: false, targets: [0, 1, 2, 3] } =
                 ],
                 language: {
-                    "lengthMenu": "每頁顯示 _MENU_ 筆",
-                    "zeroRecords": "查無資料",
-                    "info": "第 _START_ ~ _END_ 筆，共 _TOTAL_ 筆",
-                    "infoEmpty": "無符合資料",
-                    "paginate": {
-                        "first": "第一頁",
-                        "last": "最後一頁",
-                        "next": "下一頁",
-                        "previous": "上一頁"
-                    }
+                "url": "//cdn.datatables.net/plug-ins/2.3.2/i18n/zh-HANT.json"
                 }
             });
 

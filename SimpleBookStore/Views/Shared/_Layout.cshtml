@@ -44,43 +44,50 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Product" asp-action="Search">
                                 <i class="bi bi-search"></i> 商品查詢
-                             </a>
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Author" asp-action="Index">作者列表</a>
                         </li>
                     </ul>
-                    <div class="d-flex align-items-center ms-auto">
+                    <ul class="navbar-nav ms-auto d-flex flex-column flex-sm-row gap-2 align-items-stretch align-items-sm-center">
                         @if (User?.Identity?.IsAuthenticated == true)
                         {
-                            <div class="d-flex align-items-center gap-2 text-dark">
-                                <div class="dropdown">
-                                    <a class="btn btn-sm dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        @currentUser?.FullName
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" asp-action="MyOrders" asp-controller="Order">歷史訂單</a></li>
-                                    </ul>
-                                </div>
-                                <a asp-action="Index" asp-controller="Cart" class="btn btn-sm bg-primary text-light"><i class="bi bi-cart3"></i></a>
-                                @if (isAdmin)
-                                {
-                                    <a asp-area="Admin" asp-action="Index" asp-controller="Home" class="btn btn-dark btn-sm">切換後台</a>
-                                }
-                                <form asp-controller="Account" asp-action="Logout" method="post" class="mb-0">
+                            <li class="nav-item dropdown">
+                                <a class="btn btn-sm dropdown-toggle w-sm-auto text-black text-start text-sm-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    @currentUser?.FullName
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-action="Profile" asp-controller="Account">個人資料</a></li>
+                                    <li><a class="dropdown-item" asp-action="MyOrders" asp-controller="Order">歷史訂單</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-action="Index" asp-controller="Cart" class="btn btn-sm bg-primary text-light w-sm-auto"><i class="bi bi-cart3"></i></a>
+                            </li>
+                            @if (isAdmin)
+                            {
+                                <li class="nav-item">
+                                    <a asp-area="Admin" asp-action="Index" asp-controller="Home" class="btn btn-dark btn-sm w-sm-auto">切換後台</a>
+                                </li>
+                            }
+                            <li class="nav-item">
+                                <form asp-controller="Account" asp-action="Logout" method="post" class="mb-0 w-sm-auto">
                                     @Html.AntiForgeryToken()
-                                    <button type="submit" class="btn btn-sm btn-outline-dark">登出</button>
+                                    <button type="submit" class="btn btn-sm btn-outline-dark w-sm-auto">登出</button>
                                 </form>
-                            </div>
+                            </li>
                         }
                         else
                         {
-                            <div class="d-flex align-items-center gap-2 text-dark">
-                                <a class="btn btn-sm btn-outline-dark" asp-controller="Account" asp-action="Login">登入</a>
-                                <a class="btn btn-sm btn-outline-dark" asp-controller="Account" asp-action="Register">註冊</a>
-                            </div>
+                            <li class="nav-item">
+                                <a class="btn btn-sm btn-outline-dark w-sm-auto" asp-controller="Account" asp-action="Login">登入</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-sm btn-outline-dark w-sm-auto" asp-controller="Account" asp-action="Register">註冊</a>
+                            </li>
                         }
-                    </div>
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -92,73 +99,59 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="footer text-muted border-top">
         <div class="container">
             <div class="row text-center text-md-start my-3">
-                <!-- 第一欄：社交媒體 -->
+                <!-- 第一欄：關注我們 -->
                 <div class="col-12 col-md-3 mb-3">
-                    <h5 class="text-primary">歡迎追蹤</h5>
+                    <h5 class="text-primary">關注我們</h5>
                     <div class="d-flex justify-content-center justify-content-md-start gap-3 ps-2">
                         <a href="#" class="text-dark" style="font-size: 1.5rem;"><i class="bi bi-facebook"></i></a>
                         <a href="#" class="text-dark" style="font-size: 1.5rem;"><i class="bi bi-instagram"></i></a>
-                        <a href="#" class="text-dark" style="font-size: 1.5rem;"><i class="bi bi-line"></i></a>
                     </div>
                 </div>
                 <!-- 第二欄：聯絡資訊 -->
                 <div class="col-12 col-md-3 mb-3 text-wrap">
                     <h5 class="text-primary">聯絡資訊</h5>
-                    <div class=" ps-2">
-                        <p>
-                            SweetNest甜巢
-                        </p>
-                        <p>09xx-xxx-xxx</p>
-                        <p>SweetNest@test.com</p>
-                        <p>新北市XX區XX路XX號</p>
+                    <div class="ps-2">
+                        <p>SimpleBookStore</p>
+                        <p>02-1234-5678</p>
+                        <p>simplebookstore@hollowtim.dev</p>
                     </div>
                 </div>
-                <!-- 第三欄：客戶服務 -->
+                <!-- 第三欄：顧客服務 -->
                 <div class="col-12 col-md-3 mb-3">
-                    <h5 class="text-primary">客戶服務</h5>
+                    <h5 class="text-primary">顧客服務</h5>
                     <ul class="list-unstyled ps-2">
-                        <li><a href="#">自取/外帶說明</a></li>
-                        <li><a href="#">宅配說明</a></li>
-                        <li><a href="#">黑貓宅配服務連結</a></li>
+                        <li>
+                            <a asp-controller="Home" asp-action="Info" asp-fragment="faq">常見問題</a>
+                        </li>
+                        <li>
+                            <a asp-controller="Home" asp-action="Info" asp-fragment="order">訂單查詢</a>
+                        </li>
+                        <li>
+                            <a asp-controller="Home" asp-action="Info" asp-fragment="contact">聯絡我們</a>
+                        </li>
                     </ul>
                 </div>
                 <!-- 第四欄：購物須知 -->
                 <div class="col-12 col-md-3 mb-3">
                     <h5 class="text-primary">購物須知</h5>
                     <ul class="list-unstyled ps-2">
-                        <li><a href="#">隱私權聲明</a></li>
-                        <li><a href="#">防詐騙宣導</a></li>
-                        <li><a href="#">退貨政策</a></li>
+                        <li>
+                            <a asp-controller="Home" asp-action="Info" asp-fragment="privacy">隱私權政策</a>
+                        </li>
+                        <li>
+                            <a asp-controller="Home" asp-action="Info" asp-fragment="return">退換貨政策</a>
+                        </li>
+                        <li>
+                            <a asp-controller="Home" asp-action="Info" asp-fragment="member">會員條款</a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
     </footer>
-
-    <!-- 購物車 Offcanvas -->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="cartOffcanvasLabel"><i class="bi bi-cart3"></i> 購物車</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="關閉"></button>
-        </div>
-        <div class="offcanvas-body p-0 d-flex flex-column" style="min-width:320px;">
-            <div id="cartList" class="list-group list-group-flush">
-                <!-- JS 動態填入購物車內容 -->
-                <div class="text-center py-5 text-muted">購物車是空的</div>
-            </div>
-            <div class="mt-auto p-3 border-top bg-light">
-                <div class="d-flex justify-content-between mb-3">
-                    <span>總計</span>
-                    <span id="cartTotal" class="fw-bold text-danger">NT$0</span>
-                </div>
-                <a href="@Url.Action("Checkout", "Order")" class="btn btn-primary w-100 mb-2" id="checkoutBtn" style="pointer-events:none; opacity:0.7;">前往結帳</a>
-                <button type="button" class="btn btn-outline-danger w-100" id="clearCartBtn">清空購物車</button>
-            </div>
-        </div>
-    </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

@@ -39,6 +39,18 @@ namespace SimpleBookStore.Areas.Admin.Controllers
             try
             {
                 await _couponService.CreateAsync(coupon);
+
+                var options = new Stripe.CouponCreateOptions
+                {
+                    AmountOff = (long)(coupon.DiscountAmount * 100),
+                    Name = coupon.Code,
+                    Currency = "twd",
+                    Id = coupon.Code,
+                };
+
+                var service = new Stripe.CouponService();
+                service.Create(options);
+
                 TempData["Success"] = "操作成功！";
             }
             catch

@@ -1,8 +1,256 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "首頁";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    .hero-banner {
+        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        position: relative;
+        overflow: hidden;
+    }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 40%;
+            height: 200%;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+    .feature-card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        border: none;
+        border-radius: 12px;
+    }
+
+        .feature-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+        }
+
+    .about-section {
+        background: linear-gradient(45deg, #f8f9fa 0%, #ffffff 100%);
+    }
+
+    .announcement-card {
+        background: #ffffff;
+        border-left: 4px solid #007bff;
+    }
+
+    .announcement-item {
+        transition: background-color 0.2s ease;
+        border-radius: 8px;
+        margin-bottom: 0.5rem;
+    }
+
+        .announcement-item:hover {
+            background-color: #f8f9fa;
+        }
+
+    .section-title {
+        position: relative;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: #007bff;
+            border-radius: 2px;
+        }
+
+    .feature-icon {
+        width: 48px;
+        height: 48px;
+        background: #007bff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .coupon-card {
+        background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+        border-left: 4px solid #ff4757;
+        color: white;
+    }
+
+    .coupon-item {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        margin-bottom: 0.75rem;
+        transition: all 0.2s ease;
+    }
+
+        .coupon-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+        }
+
+    .coupon-code {
+        background: rgba(255, 255, 255, 0.9);
+        color: #333;
+        font-family: 'Courier New', monospace;
+        font-weight: bold;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.9rem;
+    }
+
+</style>
+
+<!-- Hero Banner -->
+<div class="hero-banner text-white py-5 mb-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="display-4 fw-bold mb-3">歡迎來到 SimpleBookStore！</h1>
+                <p class="lead mb-4">尋找你的下一本好書，享受閱讀生活</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="display-1">📚</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row gy-5">
+        <!-- 店家介紹區塊 -->
+        <div class="col-12 col-lg-8">
+            <div class="feature-card about-section rounded shadow-sm p-4 h-100" id="about">
+                <h2 class="section-title fw-bold">關於 SimpleBookStore</h2>
+                <p class="mb-4">
+                    SimpleBookStore 創立於 2025 年，是一座充滿溫度與書香的線上書店。<br />
+                    我們相信，每一本書都是一場心靈的旅行，無論你身在何處，都能在書巢找到屬於你的那本好書。<br />
+                    我們精選華文與外文新書、經典文學、商業理財、童書繪本等多元書籍，為不同年齡與興趣的讀者打造最豐富的閱讀天地。<br />
+                    書巢不只是一間書店，更是每位愛書人的交流平台。我們定期舉辦線上閱讀活動、主題書展，邀請作家與讀者一同分享閱讀的美好。<br />
+                    期待與你一起，讓閱讀成為生活中最動人的風景。
+                </p>
+
+                <!-- 特色服務 -->
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-start">
+                            <div class="feature-icon me-3">📖</div>
+                            <div>
+                                <h6 class="fw-bold mb-1">多元書籍類別</h6>
+                                <small class="text-muted">滿足各種閱讀需求</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-start">
+                            <div class="feature-icon me-3">🚚</div>
+                            <div>
+                                <h6 class="fw-bold mb-1">快速出貨</h6>
+                                <small class="text-muted">貼心包裝，網購安心便利</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-start">
+                            <div class="feature-icon me-3">🎁</div>
+                            <div>
+                                <h6 class="fw-bold mb-1">專屬優惠</h6>
+                                <small class="text-muted">不定期會員活動</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-start">
+                            <div class="feature-icon me-3">💬</div>
+                            <div>
+                                <h6 class="fw-bold mb-1">貼心客服</h6>
+                                <small class="text-muted">用心守護每一次購書體驗</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 活動公告區 -->
+        <div class="col-12 col-lg-4">
+            <div class="feature-card announcement-card rounded shadow-sm p-4 h-100">
+                <h4 class="section-title fw-bold">活動公告</h4>
+                <div class="announcement-item p-3">
+                    <div class="d-flex align-items-start">
+                        <span class="badge bg-danger me-3 mt-1">限時</span>
+                        <div class="flex-grow-1">
+                            <strong class="d-block">全館滿千折百活動進行中！</strong>
+                            <small class="text-secondary">2025-07-01 ~ 2025-07-14</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="announcement-item p-3">
+                    <div class="d-flex align-items-start">
+                        <span class="badge bg-success me-3 mt-1">新書</span>
+                        <div class="flex-grow-1">
+                            <strong class="d-block">夏日讀書季新書上市</strong>
+                            <small class="text-secondary">2025-07-05</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="announcement-item p-3">
+                    <div class="d-flex align-items-start">
+                        <span class="badge bg-primary me-3 mt-1">公告</span>
+                        <div class="flex-grow-1">
+                            <strong class="d-block">7/10(三)系統維護，暫停出貨</strong>
+                            <small class="text-secondary">2025-07-10</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <a href="#" class="btn btn-outline-primary btn-sm rounded-pill">查看更多公告</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 優惠券區塊 -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="feature-card coupon-card rounded shadow-sm p-4">
+                <h4 class="section-title fw-bold text-white">🎟️ 限時優惠券</h4>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="coupon-item p-3">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h6 class="fw-bold mb-0">夏季特賣全館折扣</h6>
+                                <span class="coupon-code">SUMMER20</span>
+                            </div>
+                            <p class="mb-1 small">滿 $1000 折 $200</p>
+                            <small class="opacity-75">有效期限：2025-10-04</small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="coupon-item p-3">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h6 class="fw-bold mb-0">免運優惠券</h6>
+                                <span class="coupon-code">FREESHIP</span>
+                            </div>
+                            <p class="mb-1 small">免運費 $60</p>
+                            <small class="opacity-75">有效期限：2025-10-04</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

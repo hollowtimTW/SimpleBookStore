@@ -17,7 +17,9 @@
 </div>
 
 <div class="container py-4">
-    <h2 class="mb-4">作者列表</h2>
+    <h2 class="mb-4 text-secondary fw-bold text-center border-bottom pb-2 bg-light bg-opacity-75 rounded shadow-sm animate__animated animate__fadeInDown">
+        @ViewData["Title"]
+    </h2>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
         @foreach (var author in Model)
         {

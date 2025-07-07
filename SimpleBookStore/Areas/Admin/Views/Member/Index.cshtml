@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ApplicationUser>
+
+@{
+    ViewData["Title"] = "會員管理";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-primary fw-bold text-center border-bottom pb-2 bg-light bg-opacity-75 rounded shadow-sm animate__animated animate__fadeInDown">
+        @ViewData["Title"]
+    </h2>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle text-center">
+            <thead class="table-light">
+                <tr>
+                    <th>會員編號</th>
+                    <th>會員姓名</th>
+                    <th>電話</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="4" class="text-center text-muted">尚無會員資料</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var user in Model)
+                    {
+                        <tr>
+                            <td>@user.Id</td>
+                            <td>@user.FullName</td>
+                            <td>@user.PhoneNumber</td>
+                            <td>
+                                <a asp-action="Detail" asp-controller="Member" asp-route-id="@user.Id" class="btn btn-primary btn-sm">詳細資料</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimpleBookStore.Data;
@@ -15,16 +16,19 @@ namespace SimpleBookStore.Controllers
     public class OrderController : Controller
     {
         private readonly AppDbContext _db;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IOrderService _orderService;
         private readonly ICartService _cartService;
         private readonly ICouponService _couponService;
         public OrderController(
             AppDbContext db,
+            UserManager<ApplicationUser> userManager,
             IOrderService orderService,
             ICartService cartService, 
             ICouponService couponService)
         {
             _db = db;
+            _userManager = userManager;
             _orderService = orderService;
             _cartService = cartService;
             _couponService = couponService;
@@ -54,6 +58,7 @@ namespace SimpleBookStore.Controllers
         public async Task<IActionResult> Checkout()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             var cartItems = await _db.ShoppingCarts
                 .Where(c => c.UserId == userId)
                 .Include(c => c.Product).ThenInclude(p => p.Author)
@@ -94,6 +99,15 @@ namespace SimpleBookStore.Controllers
         public async Task<IActionResult> Checkout(CheckoutVM vm)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            // 檢查使用者是否被封禁
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user.IsBanned)
+            {
+                TempData["Error"] = "您的帳號已被封禁，無法進行結帳。";
+                return RedirectToAction("Index", "Home");
+            }
+
             var couponCode = Request.Cookies["CouponCode"];
             if (!ModelState.IsValid)
             {

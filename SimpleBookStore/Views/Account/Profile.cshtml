@@ -1,0 +1,58 @@
+﻿@model ApplicationUser
+
+@{
+    ViewData["Title"] = "個人資料";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2 class="mb-4 text-center">個人資料</h2>
+                    <form asp-action="Profile" asp-controller="Account" method="post" autocomplete="off">
+                        @Html.AntiForgeryToken()
+
+                        <div class="mb-3">
+                            <label asp-for="FullName" class="form-label">姓名 <span class="text-danger">*</span></label>
+                            <input asp-for="FullName" class="form-control" required maxlength="30" />
+                            <span asp-validation-for="FullName" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label">電子郵件</label>
+                            <input asp-for="Email" class="form-control" readonly />
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="PhoneNumber" class="form-label">手機號碼</label>
+                            <input asp-for="PhoneNumber" class="form-control" maxlength="20" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Address" class="form-label">地址</label>
+                            <input asp-for="Address" class="form-control" maxlength="100" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid mb-2">
+                            <button type="submit" class="btn btn-primary btn-lg">儲存變更</button>
+                        </div>
+                    </form>
+                    <form asp-action="ForgotPassword" asp-controller="Account" method="post">
+                        <div class="d-grid mb-2">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="Email" value="@Model.Email" />
+                            <button type="submit" class="btn btn-outline-warning btn-lg">重設密碼</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <a asp-action="Index" asp-controller="Home" class="btn btn-outline-secondary">返回首頁</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,202 @@
+﻿@{
+    ViewData["Title"] = "幫助專區";
+}
+
+<style>
+    .service-card {
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        margin-bottom: 1rem;
+    }
+
+    .list-group-header {
+        background: #6c757d !important;
+        border-radius: 8px 8px 0 0 !important;
+    }
+
+    .tab-content {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 2rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .faq-item {
+        background: white;
+        margin-bottom: 1rem;
+        padding: 1.5rem;
+        border-radius: 6px;
+        border-left: 3px solid #007bff;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+
+        .faq-item dt {
+            color: #007bff;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-item dd {
+            color: #666;
+            line-height: 1.6;
+            margin-left: 0;
+        }
+
+    .contact-form {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        margin-top: 1.5rem;
+    }
+
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        border-radius: 6px;
+        padding: 10px 20px;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+    .info-list li {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .policy-content {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+
+        .policy-content h3 {
+            color: #007bff;
+            margin-bottom: 1.5rem;
+        }
+</style>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12 col-md-3 mb-4 mb-md-0">
+            <div class="service-card">
+                <div class="list-group">
+                    <div class="list-group-header fw-semibold px-3 py-2 text-light fs-6">顧客服務</div>
+                    <button class="list-group-item list-group-item-action active" id="faq-tab" data-bs-toggle="pill" data-bs-target="#faq" type="button" role="tab">常見問題</button>
+                    <button class="list-group-item list-group-item-action" id="order-tab" data-bs-toggle="pill" data-bs-target="#order" type="button" role="tab">訂單查詢</button>
+                    <button class="list-group-item list-group-item-action" id="contact-tab" data-bs-toggle="pill" data-bs-target="#contact" type="button" role="tab">聯絡我們</button>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="list-group">
+                    <div class="list-group-header fw-semibold px-3 py-2 text-light fs-6">購物須知</div>
+                    <button class="list-group-item list-group-item-action" id="privacy-tab" data-bs-toggle="pill" data-bs-target="#privacy" type="button" role="tab">隱私權政策</button>
+                    <button class="list-group-item list-group-item-action" id="return-tab" data-bs-toggle="pill" data-bs-target="#return" type="button" role="tab">退換貨政策</button>
+                    <button class="list-group-item list-group-item-action" id="member-tab" data-bs-toggle="pill" data-bs-target="#member" type="button" role="tab">會員條款</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-9">
+            <div class="tab-content" id="infoTabContent">
+                <div class="tab-pane fade show active" id="faq" role="tabpanel">
+                    <div class="policy-content">
+                        <h3>常見問題</h3>
+                        <div class="faq-item">
+                            <dt>Q1：如何註冊會員？</dt>
+                            <dd>請點選右上角「註冊」按鈕，填寫基本資料並驗證電子郵件後，即可成為會員。</dd>
+                        </div>
+                        <div class="faq-item">
+                            <dt>Q2：忘記密碼怎麼辦？</dt>
+                            <dd>請於登入頁面點選「忘記密碼」，輸入註冊的電子郵件，我們將寄送重設密碼連結給您。</dd>
+                        </div>
+                        <div class="faq-item">
+                            <dt>Q3：下單後多久會出貨？</dt>
+                            <dd>一般訂單在付款完成後 1-2 個工作天內出貨，預購或缺貨商品除外。</dd>
+                        </div>
+                        <div class="faq-item">
+                            <dt>Q4：可以指定送貨時間嗎？</dt>
+                            <dd>目前配合的物流為宅配與超商取貨，恕無法指定配送時間，請見諒。</dd>
+                        </div>
+                        <div class="faq-item">
+                            <dt>Q5：購物有最低消費限制嗎？</dt>
+                            <dd>本網站購物無最低金額限制，單筆滿 NT$1,000 可享免運。</dd>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="order" role="tabpanel">
+                    <div class="policy-content">
+                        <h3>訂單查詢</h3>
+                        <p>您可登入會員後，至「會員中心 &gt; 我的訂單」頁面，查看所有訂單紀錄與出貨狀態。</p>
+                        <p>若您尚未收到商品或對訂單內容有疑問，歡迎透過「聯絡我們」與客服人員聯繫，我們將盡快協助處理。</p>
+                        <p>溫馨提醒：若您使用訪客結帳，請保留訂單號與付款證明，方便我們協助查詢。</p>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="contact" role="tabpanel">
+                    <div class="policy-content">
+                        <h3>聯絡我們</h3>
+                        <ul class="info-list list-unstyled">
+                            <li>客服信箱：support@booknest.com</li>
+                            <li>聯絡電話：02-1234-5678（週一至週五 09:00-18:00）</li>
+                            <li>我們僅提供線上服務，目前無實體門市，請透過電子郵件或留言與我們聯繫。</li>
+                        </ul>
+                        <p>若您有任何關於訂單、商品、退換貨或其他問題，請填寫以下表單，我們將於 1-2 個工作天內回覆。</p>
+                        <form class="contact-form">
+                            <div class="mb-3">
+                                <label class="form-label">您的姓名</label>
+                                <input type="text" class="form-control" placeholder="請輸入您的姓名" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">電子郵件</label>
+                                <input type="email" class="form-control" placeholder="請輸入您的電子郵件" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">留言內容</label>
+                                <textarea class="form-control" rows="4" placeholder="請輸入您的問題或需求"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">送出留言</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="privacy" role="tabpanel">
+                    <div class="policy-content">
+                        <h3>隱私權政策</h3>
+                        <p>本網站非常重視會員的隱私與個人資料保護，僅在提供購物、物流與會員服務時，依法收集與使用必要資訊。</p>
+                        <p>除法令規定或經會員同意外，我們不會將您的個人資料揭露予任何第三方。</p>
+                        <p>您有權隨時查詢、更正或請求刪除您的個人資料，若有相關需求，請聯絡客服協助處理。</p>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="return" role="tabpanel">
+                    <div class="policy-content">
+                        <h3>退換貨政策</h3>
+                        <ul>
+                            <li>若您收到的書籍有瑕疵或寄錯，請於收到商品 7 日內聯絡客服並提供照片，客服將協助退換貨處理。</li>
+                            <li>請保持書籍及包裝完整，勿拆封或損毀，否則可能影響退換貨權益。</li>
+                            <li>退換貨處理時間約 5-7 個工作天，退款將依原付款方式退還。</li>
+                            <li>電子書、預購及特惠商品，除非商品本身有瑕疵，恕不接受退換貨。</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="member" role="tabpanel">
+                    <div class="policy-content">
+                        <h3>會員條款</h3>
+                        <ol>
+                            <li>會員註冊時需提供正確且完整的個人資料，並應妥善保管帳號與密碼，不得轉讓或提供他人使用。</li>
+                            <li>會員應遵守本網站使用規範，若有違反或造成損害，本公司有權暫停或終止其會員資格。</li>
+                            <li>若會員有疑似盜用、侵權或其他違法行為，本公司將依法律途徑追究責任。</li>
+                            <li>會員可隨時申請終止帳號，若帳號內尚有未完成之訂單，需待交易完成後再進行。</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

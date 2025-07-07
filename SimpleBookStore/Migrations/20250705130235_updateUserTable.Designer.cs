@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimpleBookStore.Data;
 
@@ -11,9 +12,11 @@ using SimpleBookStore.Data;
 namespace SimpleBookStore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250705130235_updateUserTable")]
+    partial class updateUserTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -169,9 +172,6 @@ namespace SimpleBookStore.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("longtext");
 
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("varchar(256)");
@@ -263,35 +263,35 @@ namespace SimpleBookStore.Migrations
                         {
                             Id = 1,
                             Bio = "熱愛文字與城市觀察，擅長描寫人與人之間微妙的情感。",
-                            CreatedAt = new DateTime(2025, 7, 6, 16, 7, 16, 130, DateTimeKind.Unspecified).AddTicks(3386),
+                            CreatedAt = new DateTime(2025, 7, 5, 21, 2, 33, 975, DateTimeKind.Unspecified).AddTicks(5188),
                             Name = "林語川"
                         },
                         new
                         {
                             Id = 2,
                             Bio = "歷史科普作家，致力於用輕鬆的語言讓讀者了解複雜歷史事件。",
-                            CreatedAt = new DateTime(2025, 7, 6, 16, 7, 16, 130, DateTimeKind.Unspecified).AddTicks(3386),
+                            CreatedAt = new DateTime(2025, 7, 5, 21, 2, 33, 975, DateTimeKind.Unspecified).AddTicks(5188),
                             Name = "張書涵"
                         },
                         new
                         {
                             Id = 3,
                             Bio = "自由旅人與攝影記錄者，筆下風景充滿詩意與溫度。",
-                            CreatedAt = new DateTime(2025, 7, 6, 16, 7, 16, 130, DateTimeKind.Unspecified).AddTicks(3386),
+                            CreatedAt = new DateTime(2025, 7, 5, 21, 2, 33, 975, DateTimeKind.Unspecified).AddTicks(5188),
                             Name = "陳彥廷"
                         },
                         new
                         {
                             Id = 4,
                             Bio = "軟體工程師轉職作家，擅長將抽象技術轉化為易懂故事。",
-                            CreatedAt = new DateTime(2025, 7, 6, 16, 7, 16, 130, DateTimeKind.Unspecified).AddTicks(3386),
+                            CreatedAt = new DateTime(2025, 7, 5, 21, 2, 33, 975, DateTimeKind.Unspecified).AddTicks(5188),
                             Name = "高雅雯"
                         },
                         new
                         {
                             Id = 5,
                             Bio = "心理學背景出身，專注於內在成長與心靈療癒領域。",
-                            CreatedAt = new DateTime(2025, 7, 6, 16, 7, 16, 130, DateTimeKind.Unspecified).AddTicks(3386),
+                            CreatedAt = new DateTime(2025, 7, 5, 21, 2, 33, 975, DateTimeKind.Unspecified).AddTicks(5188),
                             Name = "李思瑜"
                         });
                 });
@@ -326,7 +326,7 @@ namespace SimpleBookStore.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 7, 6, 16, 7, 16, 130, DateTimeKind.Unspecified).AddTicks(3386),
+                            CreatedAt = new DateTime(2025, 7, 5, 21, 2, 33, 975, DateTimeKind.Unspecified).AddTicks(5188),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "文學小說"
@@ -334,7 +334,7 @@ namespace SimpleBookStore.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 7, 6, 16, 7, 16, 130, DateTimeKind.Unspecified).AddTicks(3386),
+                            CreatedAt = new DateTime(2025, 7, 5, 21, 2, 33, 975, DateTimeKind.Unspecified).AddTicks(5188),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "歷史文化"
@@ -342,7 +342,7 @@ namespace SimpleBookStore.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2025, 7, 6, 16, 7, 16, 130, DateTimeKind.Unspecified).AddTicks(3386),
+                            CreatedAt = new DateTime(2025, 7, 5, 21, 2, 33, 975, DateTimeKind.Unspecified).AddTicks(5188),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "旅遊休閒"
@@ -350,7 +350,7 @@ namespace SimpleBookStore.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2025, 7, 6, 16, 7, 16, 130, DateTimeKind.Unspecified).AddTicks(3386),
+                            CreatedAt = new DateTime(2025, 7, 5, 21, 2, 33, 975, DateTimeKind.Unspecified).AddTicks(5188),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "電腦資訊"
@@ -358,7 +358,7 @@ namespace SimpleBookStore.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2025, 7, 6, 16, 7, 16, 130, DateTimeKind.Unspecified).AddTicks(3386),
+                            CreatedAt = new DateTime(2025, 7, 5, 21, 2, 33, 975, DateTimeKind.Unspecified).AddTicks(5188),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "心理勵志"
@@ -408,10 +408,10 @@ namespace SimpleBookStore.Migrations
                             Code = "WELCOME10",
                             Description = "新會員首購折扣",
                             DiscountAmount = 100,
-                            EndDate = new DateTime(2025, 10, 4, 8, 7, 16, 130, DateTimeKind.Utc).AddTicks(3604),
+                            EndDate = new DateTime(2025, 10, 3, 13, 2, 33, 975, DateTimeKind.Utc).AddTicks(5390),
                             IsActive = true,
                             MinimumSpend = 500,
-                            StartDate = new DateTime(2025, 7, 6, 8, 7, 16, 130, DateTimeKind.Utc).AddTicks(3603)
+                            StartDate = new DateTime(2025, 7, 5, 13, 2, 33, 975, DateTimeKind.Utc).AddTicks(5390)
                         },
                         new
                         {
@@ -419,10 +419,10 @@ namespace SimpleBookStore.Migrations
                             Code = "SUMMER20",
                             Description = "夏季特賣全館折扣",
                             DiscountAmount = 200,
-                            EndDate = new DateTime(2025, 10, 4, 8, 7, 16, 130, DateTimeKind.Utc).AddTicks(3619),
+                            EndDate = new DateTime(2025, 10, 3, 13, 2, 33, 975, DateTimeKind.Utc).AddTicks(5393),
                             IsActive = true,
                             MinimumSpend = 1000,
-                            StartDate = new DateTime(2025, 7, 6, 8, 7, 16, 130, DateTimeKind.Utc).AddTicks(3618)
+                            StartDate = new DateTime(2025, 7, 5, 13, 2, 33, 975, DateTimeKind.Utc).AddTicks(5393)
                         },
                         new
                         {
@@ -430,10 +430,10 @@ namespace SimpleBookStore.Migrations
                             Code = "FREESHIP",
                             Description = "免運優惠券",
                             DiscountAmount = 60,
-                            EndDate = new DateTime(2025, 10, 4, 8, 7, 16, 130, DateTimeKind.Utc).AddTicks(3621),
+                            EndDate = new DateTime(2025, 10, 3, 13, 2, 33, 975, DateTimeKind.Utc).AddTicks(5395),
                             IsActive = true,
                             MinimumSpend = 0,
-                            StartDate = new DateTime(2025, 7, 6, 8, 7, 16, 130, DateTimeKind.Utc).AddTicks(3621)
+                            StartDate = new DateTime(2025, 7, 5, 13, 2, 33, 975, DateTimeKind.Utc).AddTicks(5395)
                         },
                         new
                         {
@@ -441,10 +441,10 @@ namespace SimpleBookStore.Migrations
                             Code = "VIP50",
                             Description = "VIP會員專屬優惠",
                             DiscountAmount = 500,
-                            EndDate = new DateTime(2025, 10, 4, 8, 7, 16, 130, DateTimeKind.Utc).AddTicks(3623),
+                            EndDate = new DateTime(2025, 10, 3, 13, 2, 33, 975, DateTimeKind.Utc).AddTicks(5398),
                             IsActive = true,
                             MinimumSpend = 2500,
-                            StartDate = new DateTime(2025, 7, 6, 8, 7, 16, 130, DateTimeKind.Utc).AddTicks(3623)
+                            StartDate = new DateTime(2025, 7, 5, 13, 2, 33, 975, DateTimeKind.Utc).AddTicks(5397)
                         },
                         new
                         {
@@ -452,10 +452,10 @@ namespace SimpleBookStore.Migrations
                             Code = "BIRTHDAY30",
                             Description = "生日禮遇折扣券",
                             DiscountAmount = 300,
-                            EndDate = new DateTime(2025, 10, 4, 8, 7, 16, 130, DateTimeKind.Utc).AddTicks(3625),
+                            EndDate = new DateTime(2025, 10, 3, 13, 2, 33, 975, DateTimeKind.Utc).AddTicks(5399),
                             IsActive = true,
                             MinimumSpend = 1500,
-                            StartDate = new DateTime(2025, 7, 6, 8, 7, 16, 130, DateTimeKind.Utc).AddTicks(3625)
+                            StartDate = new DateTime(2025, 7, 5, 13, 2, 33, 975, DateTimeKind.Utc).AddTicks(5399)
                         });
                 });
 
@@ -629,7 +629,7 @@ namespace SimpleBookStore.Migrations
                             Id = 1,
                             AuthorId = 1,
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2025, 7, 6, 16, 7, 16, 130, DateTimeKind.Unspecified).AddTicks(3386),
+                            CreatedAt = new DateTime(2025, 7, 5, 21, 2, 33, 975, DateTimeKind.Unspecified).AddTicks(5188),
                             Description = "當思想成為力量，城市也會呼吸。",
                             IsActive = true,
                             IsDeleted = false,
@@ -637,14 +637,14 @@ namespace SimpleBookStore.Migrations
                             PublishedDate = new DateTime(2023, 2, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Publisher = "幻語出版",
                             Title = "靈光之城：The Rise of Mindlight",
-                            UpdatedAt = new DateTime(2025, 7, 6, 16, 7, 16, 130, DateTimeKind.Unspecified).AddTicks(3386)
+                            UpdatedAt = new DateTime(2025, 7, 5, 21, 2, 33, 975, DateTimeKind.Unspecified).AddTicks(5188)
                         },
                         new
                         {
                             Id = 2,
                             AuthorId = 2,
                             CategoryId = 2,
-                            CreatedAt = new DateTime(2025, 7, 6, 16, 9, 16, 130, DateTimeKind.Unspecified).AddTicks(3386),
+                            CreatedAt = new DateTime(2025, 7, 5, 21, 4, 33, 975, DateTimeKind.Unspecified).AddTicks(5188),
                             Description = "一部顛覆歷史視角的時空探險小說。",
                             IsActive = true,
                             IsDeleted = false,
@@ -652,14 +652,14 @@ namespace SimpleBookStore.Migrations
                             PublishedDate = new DateTime(2022, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Publisher = "時代盒子文化",
                             Title = "時砂紀元：Chrono Sands",
-                            UpdatedAt = new DateTime(2025, 7, 6, 16, 9, 16, 130, DateTimeKind.Unspecified).AddTicks(3386)
+                            UpdatedAt = new DateTime(2025, 7, 5, 21, 4, 33, 975, DateTimeKind.Unspecified).AddTicks(5188)
                         },
                         new
                         {
                             Id = 3,
                             AuthorId = 3,
                             CategoryId = 3,
-                            CreatedAt = new DateTime(2025, 7, 6, 16, 10, 16, 130, DateTimeKind.Unspecified).AddTicks(3386),
+                            CreatedAt = new DateTime(2025, 7, 5, 21, 5, 33, 975, DateTimeKind.Unspecified).AddTicks(5188),
                             Description = "探索日常的陌生角落，走出你的Walkscape。",
                             IsActive = true,
                             IsDeleted = false,
@@ -667,14 +667,14 @@ namespace SimpleBookStore.Migrations
                             PublishedDate = new DateTime(2021, 11, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Publisher = "步路生活",
                             Title = "Walkscape：城市微旅行指南",
-                            UpdatedAt = new DateTime(2025, 7, 6, 16, 10, 16, 130, DateTimeKind.Unspecified).AddTicks(3386)
+                            UpdatedAt = new DateTime(2025, 7, 5, 21, 5, 33, 975, DateTimeKind.Unspecified).AddTicks(5188)
                         },
                         new
                         {
                             Id = 4,
                             AuthorId = 1,
                             CategoryId = 4,
-                            CreatedAt = new DateTime(2025, 7, 6, 16, 11, 16, 130, DateTimeKind.Unspecified).AddTicks(3386),
+                            CreatedAt = new DateTime(2025, 7, 5, 21, 6, 33, 975, DateTimeKind.Unspecified).AddTicks(5188),
                             Description = "結合語言學與人工智慧的程式思維演進之路。",
                             IsActive = true,
                             IsDeleted = false,
@@ -682,14 +682,14 @@ namespace SimpleBookStore.Migrations
                             PublishedDate = new DateTime(2024, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Publisher = "幻碼實驗室",
                             Title = "Code Alchemy：寫給未來的程式語言",
-                            UpdatedAt = new DateTime(2025, 7, 6, 16, 11, 16, 130, DateTimeKind.Unspecified).AddTicks(3386)
+                            UpdatedAt = new DateTime(2025, 7, 5, 21, 6, 33, 975, DateTimeKind.Unspecified).AddTicks(5188)
                         },
                         new
                         {
                             Id = 5,
                             AuthorId = 2,
                             CategoryId = 5,
-                            CreatedAt = new DateTime(2025, 7, 6, 16, 12, 16, 130, DateTimeKind.Unspecified).AddTicks(3386),
+                            CreatedAt = new DateTime(2025, 7, 5, 21, 7, 33, 975, DateTimeKind.Unspecified).AddTicks(5188),
                             Description = "給被生活困住的你，一場重啟心靈的旅程。",
                             IsActive = true,
                             IsDeleted = false,
@@ -697,7 +697,7 @@ namespace SimpleBookStore.Migrations
                             PublishedDate = new DateTime(2020, 5, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Publisher = "心靈迴響",
                             Title = "Reset Me：重新啟動的勇氣",
-                            UpdatedAt = new DateTime(2025, 7, 6, 16, 12, 16, 130, DateTimeKind.Unspecified).AddTicks(3386)
+                            UpdatedAt = new DateTime(2025, 7, 5, 21, 7, 33, 975, DateTimeKind.Unspecified).AddTicks(5188)
                         });
                 });
 

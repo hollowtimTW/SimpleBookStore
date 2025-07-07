@@ -5,13 +5,14 @@
 @{
     // 定義 sidebar menu 資料
     var menuItems = new[]
-   {
-    new { Text = "首頁", Icon = "bi-house", Controller = "Home", Action = "Index" },
-    new { Text = "訂單管理", Icon = "bi-list-check", Controller = "Order", Action = "Index" },
-    new { Text = "商品管理", Icon = "bi-book", Controller = "Product", Action = "Index" },
-    new { Text = "分類管理", Icon = "bi-tags", Controller = "Category", Action = "Index" },
-    new { Text = "作者管理", Icon = "bi-person", Controller = "Author", Action = "Index" },
-    new { Text = "優惠卷管理", Icon = "bi-ticket-perforated", Controller = "Coupon", Action = "Index" }
+    {
+        // new { Text = "首頁", Icon = "bi-house", Controller = "Home", Action = "Index" },
+        new { Text = "訂單管理", Icon = "bi-list-check", Controller = "Order", Action = "Index" },
+        new { Text = "商品管理", Icon = "bi-book", Controller = "Product", Action = "Index" },
+        new { Text = "分類管理", Icon = "bi-tags", Controller = "Category", Action = "Index" },
+        new { Text = "作者管理", Icon = "bi-person", Controller = "Author", Action = "Index" },
+        new { Text = "優惠卷管理", Icon = "bi-ticket-perforated", Controller = "Coupon", Action = "Index" },
+        new { Text = "會員管理", Icon = "bi-person-vcard", Controller = "Member", Action = "Index" }
     };
 
     string currentController = ViewContext.RouteData.Values["controller"]?.ToString()!;

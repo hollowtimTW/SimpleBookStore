@@ -1,0 +1,78 @@
+﻿@model MemberDetailVM
+
+@{
+    ViewData["Title"] = "會員詳細資料";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-primary fw-bold text-center border-bottom pb-2 bg-light bg-opacity-75 rounded shadow-sm">
+        會員詳細資料
+    </h2>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">@Model.User.FullName</h5>
+            <p class="card-text"><strong>會員編號：</strong>@Model.User.Id</p>
+            <p class="card-text"><strong>Email：</strong>@Model.User.Email</p>
+            <p class="card-text"><strong>電話：</strong>@Model.User.PhoneNumber</p>
+            <p class="card-text">
+                <strong>帳號狀態：</strong>
+                <span class="badge @(Model.User.IsBanned ? "bg-danger" : "bg-success")">
+                    @(Model.User.IsBanned ? "已停權" : "正常")
+                </span>
+                <span class="ms-2">
+                    <form asp-action="ToggleBan" asp-controller="Member" asp-route-id="@Model.User.Id" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-sm @(Model.User.IsBanned ? "btn-success" : "btn-danger") ms-1">
+                            @(Model.User.IsBanned ? "解除停權" : "停權")
+                        </button>
+                    </form>
+                    @if (!Model.User.EmailConfirmed)
+                    {
+                        <form asp-action="ValidAccount" asp-controller="Member" asp-route-id="@Model.User.Id" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-warning btn-sm ms-1">啟用信箱</button>
+                        </form>
+                    }
+                </span>
+            </p>
+        </div>
+    </div>
+
+    <h4 class="mb-3">會員訂單列表</h4>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle text-center">
+            <thead class="table-light">
+                <tr>
+                    <th>訂單編號</th>
+                    <th>訂單日期</th>
+                    <th>總計</th>
+                    <th>訂單狀態</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Orders == null || !Model.Orders.Any())
+                {
+                    <tr>
+                        <td colspan="5" class="text-center text-muted">尚無訂單</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var order in Model.Orders)
+                    {
+                        <tr>
+                            <td>@order.OrderHeaderId</td>
+                            <td>@order.OrderTime.ToString("yyyy-MM-dd")</td>
+                            <td>@order.OrderTotal.ToString("C0", new System.Globalization.CultureInfo("zh-TW"))</td>
+                            <td>@order.Status</td>
+                            <td>
+                                <a asp-action="Detail" asp-controller="Order" asp-route-orderId="@order.OrderHeaderId" class="btn btn-primary btn-sm">
+                                    訂單詳情
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

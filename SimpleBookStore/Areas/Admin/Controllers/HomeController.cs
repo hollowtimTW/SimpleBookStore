@@ -10,7 +10,7 @@ namespace SimpleBookStore.Areas.Admin.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Order");
         }
     }
 }

@@ -32,8 +32,8 @@
                             <td class="text-center">
                                 @item.UnitPrice.ToString("C0", new CultureInfo("zh-TW"))
                             </td>
-                            <td class="text-center" style="max-width: 120px;">
-                                <div class="d-flex align-items-center gap-2">
+                            <td style="max-width: 120px;">
+                                <div class="d-flex align-items-center justify-content-center gap-2">
                                     <!-- 減少數量 -->
                                     <form asp-action="ChangeQuantity" asp-controller="Cart" method="post" class="mb-0">
                                         <input type="hidden" name="cartId" value="@item.Id" />
