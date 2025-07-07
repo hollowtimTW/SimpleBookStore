@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using SimpleBookStore.Models;
 using SimpleBookStore.Models.ViewModels;
 using SimpleBookStore.Service.IService;
 using SimpleBookStore.Utility;
-using System.Threading.Tasks;
 
 namespace SimpleBookStore.Areas.Admin.Controllers
 {

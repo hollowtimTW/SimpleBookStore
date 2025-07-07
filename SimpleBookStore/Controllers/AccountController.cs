@@ -485,6 +485,7 @@ namespace SimpleBookStore.Controllers
             }
         }
 
+        [Authorize]
         public async Task<IActionResult> Profile()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -495,6 +496,7 @@ namespace SimpleBookStore.Controllers
             return View(user);
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Profile(ApplicationUser model)

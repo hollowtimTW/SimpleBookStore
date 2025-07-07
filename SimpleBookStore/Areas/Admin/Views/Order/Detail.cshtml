@@ -221,18 +221,29 @@
                     </dl>
                     <hr />
                     <div class="row mb-2">
-                        <div class="col-sm-3 fw-bold">折抵金額：</div>
-                        <div class="col-sm-9">
-                            @if (hasDiscount)
-                            {
-                                <span class="text-danger">-@Model.Discount.ToString("C0", new CultureInfo("zh-TW"))</span>
-                            }
-                            else
-                            {
+                        <div class="col-sm-3 fw-bold">使用優惠卷：</div>
+                        @if (Model.CouponCode != null && !string.IsNullOrEmpty(Model.CouponCode))
+                        {
+                            <div class="col-sm-9">
+                                <span class="text-danger">@Model.CouponCode</span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-sm-9">
                                 <span class="text-muted">無</span>
-                            }
-                        </div>
+                            </div>
+                        }
                     </div>
+                    @if (hasDiscount)
+                    {
+                        <div class="row mb-2">
+                            <div class="col-sm-3 fw-bold">折抵金額：</div>
+                            <div class="col-sm-9">
+                                <span class="text-danger">-@Model.Discount.ToString("C0", new CultureInfo("zh-TW"))</span>
+                            </div>
+                        </div>
+                    }
                     <div class="row mb-2">
                         <div class="col-sm-3 fw-bold">總計：</div>
                         <div class="col-sm-9">

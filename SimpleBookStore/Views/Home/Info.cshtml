@@ -124,11 +124,7 @@
                         </div>
                         <div class="faq-item">
                             <dt>Q4：可以指定送貨時間嗎？</dt>
-                            <dd>目前配合的物流為宅配與超商取貨，恕無法指定配送時間，請見諒。</dd>
-                        </div>
-                        <div class="faq-item">
-                            <dt>Q5：購物有最低消費限制嗎？</dt>
-                            <dd>本網站購物無最低金額限制，單筆滿 NT$1,000 可享免運。</dd>
+                            <dd>目前配合的物流為宅配，恕無法指定配送時間，請見諒。</dd>
                         </div>
                     </div>
                 </div>
@@ -144,7 +140,7 @@
                     <div class="policy-content">
                         <h3>聯絡我們</h3>
                         <ul class="info-list list-unstyled">
-                            <li>客服信箱：support@booknest.com</li>
+                            <li>客服信箱：simplebookstore@hollowtim.dev</li>
                             <li>聯絡電話：02-1234-5678（週一至週五 09:00-18:00）</li>
                             <li>我們僅提供線上服務，目前無實體門市，請透過電子郵件或留言與我們聯繫。</li>
                         </ul>
@@ -200,3 +196,14 @@
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <script>
+        $(function () {
+            $('.service-card .list-group-item[data-bs-toggle="pill"]').on('click', function () {
+                $('.service-card .list-group-item').removeClass('active');
+                $(this).addClass('active');
+            });
+        });
+    </script>
+}

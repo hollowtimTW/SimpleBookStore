@@ -69,3 +69,44 @@ button.accept-policy {
         margin: 0;
         list-style: none;
     }
+
+.brand-text {
+    background: linear-gradient(45deg, #007bff, #6f42c1, #e83e8c);
+    background-size: 200% 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shift 3s ease-in-out infinite;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+@keyframes gradient-shift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+.navbar-brand:hover .brand-text {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover i {
+    transform: rotate(5deg);
+    transition: transform 0.3s ease;
+}
+
+/* 降級支援不支援 background-clip 的瀏覽器 */
+@supports not (background-clip: text) {
+    .brand-text {
+        background: none;
+        color: #007bff;
+        text-shadow: 0 1px 3px rgba(0, 123, 255, 0.3);
+    }
+}

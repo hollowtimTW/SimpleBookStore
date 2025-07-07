@@ -70,21 +70,16 @@ namespace SimpleBookStore.Areas.Admin.Controllers
         public async Task<IActionResult> Cancel(int orderId)
         {
             var order = await _orderService.GetOrderAsync(orderId);
-            if (order == null || order.Status != SD.Status_Pending)
+            if (order == null)
             {
                 TempData["Error"] = "操作錯誤";
                 return RedirectToAction("Detail", new { orderId });
             }
-            else if (order.Status == SD.Status_Paid)
-            {
-                var options = new RefundCreateOptions
-                {
-                    Reason = RefundReasons.RequestedByCustomer,
-                    PaymentIntent = order.PaymentIntentId
-                };
 
-                var service = new RefundService();
-                Refund refund = service.Create(options);
+            if (order.Status != SD.Status_Paid && order.Status != SD.Status_Pending)
+            {
+                TempData["Error"] = "此訂單狀態無法取消";
+                return RedirectToAction("Detail", new { orderId });
             }
 
             await _orderService.UpdateOrderStatus(orderId, SD.Status_Cancelled);
