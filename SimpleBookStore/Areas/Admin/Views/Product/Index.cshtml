@@ -6,7 +6,8 @@
 }
 
 @section Styles {
-    <link href="~/lib/datatables/css/jquery.datatables.min.css" rel="stylesheet" />
+    <link href="~/lib/datatables/css/jquery.datatables.min.css" rel="stylesheet"
+          onerror="this.onerror=null;this.href='https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css'" />
     <style>
         .inactive-row {
             background-color: #b0b0b0;
@@ -143,7 +144,8 @@
 </div>
 
 @section Scripts {
-    <script src="~/lib/datatables/js/jquery.datatables.min.js"></script>
+    <script src="~/lib/datatables/js/jquery.datatables.min.js"
+            onerror="this.onerror=null;this.src='https://cdn.datatables.net/2.3.2/js/dataTables.min.js'"></script>
     <script src="~/lib/sweetalert2/sweetalert2.all.min.js"></script>
     <script>
         $(function () {
@@ -154,13 +156,12 @@
                 fixedHeader: true,
                 lengthMenu: [10, 25, 50, 100],
                 columnDefs: [
-                    { orderable: false, targets: [0, 1, 2, 3] } =
+                    { orderable: false, targets: [0, 1, 2, 3] }
                 ],
                 language: {
                 "url": "//cdn.datatables.net/plug-ins/2.3.2/i18n/zh-HANT.json"
                 }
             });
-
             // 搜尋事件觸發（table外部的搜尋欄）
             $('#searchTitle').on('keyup change', function () {
                 table.column(0).search(this.value).draw();
