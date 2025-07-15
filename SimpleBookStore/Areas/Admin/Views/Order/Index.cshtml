@@ -14,8 +14,7 @@
 }
 
 @section Styles {
-    <link href="~/lib/datatables/css/jquery.datatables.min.css" rel="stylesheet"
-          onerror="this.onerror=null;this.href='https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css'" />
+    <link href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css" rel="stylesheet"/>
     <style>
         /* 隱藏 DataTables 預設搜尋框 */
         #ordersTable_filter {
@@ -88,8 +87,7 @@
 </div>
 
 @section Scripts {
-    <script src="~/lib/datatables/js/jquery.datatables.min.js"
-            onerror="this.onerror=null;this.src='https://cdn.datatables.net/2.3.2/js/dataTables.min.js'"></script>
+    <script src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>
     <script>
         $(document).ready(function () {
             var table = $('#ordersTable').DataTable({

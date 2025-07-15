@@ -5,7 +5,6 @@
     var hasDiscount = Model.Discount > 0;
     var originalTotal = hasDiscount ? Model.OrderTotal + (decimal)Model.Discount : Model.OrderTotal;
 
-    // 用 SD class 常數定義狀態順序
     var stepperOrder = new List<string>
     {
         SD.Status_Pending,

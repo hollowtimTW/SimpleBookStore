@@ -4,6 +4,92 @@
     ViewData["Title"] = "訂單詳情";
     var hasDiscount = Model.Discount > 0;
     var originalTotal = hasDiscount ? Model.OrderTotal + (decimal)Model.Discount : Model.OrderTotal;
+
+    var stepperOrder = new List<string>
+    {
+        SD.Status_Pending,
+        SD.Status_Paid,
+        SD.Status_Processing,
+        SD.Status_Shipped,
+        SD.Status_Delivered,
+        SD.Status_Completed
+    };
+
+    var currentStepIndex = stepperOrder.IndexOf(Model.Status);
+    var isCancelled = Model.Status == SD.Status_Cancelled;
+}
+
+@section Styles {
+    <style>
+        .stepper {
+            counter-reset: step;
+        }
+
+        .stepper-step {
+            position: relative;
+        }
+
+        .stepper-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #e9ecef;
+            color: #6c757d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .stepper-step.completed .stepper-circle {
+            background: #0d6efd;
+            color: #fff;
+        }
+
+        .stepper-step.active .stepper-circle {
+            background: #198754;
+            color: #fff;
+        }
+
+        .stepper-label {
+            margin-top: 0.35rem;
+            color: #6c757d;
+        }
+
+        .stepper-step.active .stepper-label,
+        .stepper-step.completed .stepper-label {
+            color: #198754;
+            font-weight: bold;
+        }
+
+        .stepper-line {
+            height: 4px;
+            background: #e9ecef;
+            margin: 0 0.5rem;
+            border-radius: 2px;
+            min-width: 32px;
+            align-self: center;
+        }
+
+        .stepper-step.completed ~ .stepper-line {
+            background: #0d6efd;
+        }
+
+        @@media (max-width: 576px) {
+            .stepper-label {
+                font-size: 0.85em;
+            }
+
+            .stepper-circle {
+                width: 28px;
+                height: 28px;
+                font-size: 1em;
+            }
+        }
+    </style>
 }
 
 <div class="container mt-5">
@@ -59,7 +145,32 @@
                         <dd class="col-sm-9">@Model.OrderTime.ToString("yyyy-MM-dd HH:mm")</dd>
 
                         <dt class="col-sm-3">狀態</dt>
-                        <dd class="col-sm-9">@Model.Status</dd>
+                        <dd class="col-sm-9">
+                            @Model.Status
+
+                            @if (!isCancelled)
+                            {
+                                <ul class="stepper d-flex justify-content-between list-unstyled px-0 my-3">
+                                    @for (int i = 0; i < stepperOrder.Count; i++)
+                                    {
+                                        var isActive = i == currentStepIndex;
+                                        var isCompleted = i < currentStepIndex;
+                                        <li class="stepper-step @(isActive ? "active" : "") @(isCompleted ? "completed" : "") text-center flex-fill">
+                                            <div class="stepper-circle mb-1">
+                                                @(i + 1)
+                                            </div>
+                                            <div class="stepper-label small">
+                                                @stepperOrder[i]
+                                            </div>
+                                        </li>
+                                        @if (i != stepperOrder.Count - 1)
+                                        {
+                                            <li class="stepper-line flex-fill"></li>
+                                        }
+                                    }
+                                </ul>
+                            }
+                        </dd>
                     </dl>
                     <hr />
                     <div class="row mb-2">
