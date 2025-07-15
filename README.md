@@ -29,7 +29,7 @@
 ## 專案架構簡介
 
 - **後端語言**：C#
-- **前端技術**：HTML
+- **前端技術**：jQuery, Bootstrap 5
 - **資料庫**：MySQL
 - **框架**：ASP.NET Core MVC
 - **ORM**：Entity Framework Core（Code First）
